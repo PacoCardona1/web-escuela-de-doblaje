@@ -31,10 +31,10 @@ export type Testimonial = {
 export const mediaConfig = {
   images: {
     hero: {
-      src: "/images/hero-dubbing-booth-v7.jpg",
+      src: "/images/hero-lab-intimate-room.jpg",
       alt: "",
-      position: "55% 50%",
-      mobilePosition: "64% 50%",
+      position: "50% 50%",
+      mobilePosition: "77% 50%",
     },
     annualCourse: {
       src: "/images/studio-session-1.jpg",
