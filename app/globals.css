@@ -86,6 +86,7 @@ h2 em, h3 em { font-family: inherit; font-style: italic; font-weight: 430; }
 .course-lead { margin: 0 0 42px; }
 .course-lead p { margin: 0 0 22px; color: var(--soft-ink); font-size: 16px; line-height: 1.78; }
 .course-lead p:first-child { color: var(--ink); font-family: var(--font-display); font-size: 29px; font-weight: 420; line-height: 1.28; letter-spacing: -.035em; }
+.course-lead .button { margin-top: 10px; }
 .photo-frame { position: relative; overflow: hidden; background: #d4d2cc; border: 1px solid rgba(17,18,15,.08); }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.68) contrast(1.06); }
 .photo-frame > span { position: absolute; left: 16px; bottom: 16px; padding: 7px 9px; color: rgba(255,255,255,.72); background: rgba(10,10,10,.52); backdrop-filter: blur(8px); font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
@@ -219,7 +220,7 @@ h2 em, h3 em { font-family: inherit; font-style: italic; font-weight: 430; }
 .intensive-access h3 { max-width: 720px; }
 .intensive-access > div:last-child > strong { color: var(--accent-text-dark); font-size: 10px; font-weight: 720; letter-spacing: .16em; text-transform: uppercase; }
 .intensive-access > div:last-child > p { max-width: 530px; margin: 27px 0; color: rgba(255,255,255,.65); line-height: 1.75; }
-.intensive-form-status { min-height: 54px; padding: 0 20px; display: inline-flex; align-items: center; border: 1px solid var(--line-light); color: rgba(255,255,255,.50); font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; cursor: default; }
+.intensive-access-status { margin-top: 18px; display: block; color: rgba(255,255,255,.50); font-size: 9px; font-weight: 650; line-height: 1.55; letter-spacing: .11em; text-transform: uppercase; }
 
 /* Direction and team */
 .faculty-heading { padding-bottom: clamp(54px, 6vw, 78px); display: grid; grid-template-columns: 7fr 5fr; gap: 52px; align-items: end; border-bottom: 1px solid var(--line); }
@@ -279,83 +280,45 @@ h2 em, h3 em { font-family: inherit; font-style: italic; font-weight: 430; }
 .testimonial-attribution strong { font-size: 12px; }
 .testimonial-attribution small { color: var(--soft-ink); font-size: 9px; letter-spacing: .09em; text-transform: uppercase; }
 
-/* Admission */
-.admission { display: grid; grid-template-columns: minmax(280px, 4fr) minmax(0, 8fr); gap: clamp(60px, 7vw, 110px); align-items: start; }
-.admission-intro { position: sticky; top: 38px; }
-.admission-intro h2 { font-size: clamp(55px, 6vw, 86px); }
-.admission-intro h2 em { color: #73746e; }
-.admission-intro > p:not(.section-kicker) { max-width: 430px; margin: 38px 0 0; color: var(--soft-ink); font-size: 16px; line-height: 1.7; }
-.admission-process { max-width: 430px; margin: 48px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.admission-process li { min-height: 82px; padding: 17px 0; display: grid; grid-template-columns: 42px 1fr; gap: 12px; align-items: start; border-bottom: 1px solid var(--line); }
-.admission-process li > span { padding-top: 3px; color: var(--muted-readable); font-size: 9px; font-weight: 700; letter-spacing: .12em; }
-.admission-process li div { display: grid; gap: 6px; }
-.admission-process strong { font-size: 13px; font-weight: 720; letter-spacing: .02em; }
-.admission-process small { color: var(--soft-ink); font-size: 11px; line-height: 1.55; }
-.admission-note { max-width: 430px; margin-top: 34px; padding: 22px 0; display: grid; gap: 7px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.admission-note span, .admission-note small { color: var(--soft-ink); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
-.admission-note strong { font-family: var(--font-display); font-size: 21px; font-weight: 480; }
-.admission-form { min-width: 0; padding: clamp(32px, 4.5vw, 64px); border: 1px solid var(--line); background: rgba(255,255,255,.28); }
-.admission-progress > p { margin: 0 0 22px; color: var(--muted-readable); font-size: 9px; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }
-.admission-progress > p span { color: var(--ink); }
-.admission-progress ol { margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; }
-.admission-progress ol::before { content: ""; position: absolute; top: 15px; left: 15px; right: 15px; height: 1px; background: #c6c4bc; }
-.admission-progress li { min-width: 0; position: relative; z-index: 1; display: grid; gap: 10px; justify-items: start; color: var(--muted-readable); }
-.admission-progress li i { width: 31px; height: 31px; display: grid; place-items: center; border: 1px solid #b9bab4; border-radius: 50%; background: var(--paper); font-style: normal; font-size: 8px; letter-spacing: .05em; }
-.admission-progress li span { max-width: 90px; font-size: 8px; font-weight: 700; line-height: 1.35; letter-spacing: .08em; text-transform: uppercase; }
-.admission-progress li.is-complete i { border-color: var(--accent); color: var(--accent-text); }
-.admission-progress li.is-current { color: var(--ink); }
-.admission-progress li.is-current i { border-color: var(--ink); background: var(--ink); color: #fff; }
-.form-step { margin-top: 54px; padding-top: 48px; border-top: 1px solid var(--line); animation: form-step-in .32s cubic-bezier(.2,.7,.2,1) both; }
-.form-step-heading { margin-bottom: 48px; }
-.form-step-heading > p { margin: 0 0 12px; color: var(--accent-text); font-size: 9px; font-weight: 720; letter-spacing: .15em; text-transform: uppercase; }
-.form-step-heading h3 { font-size: clamp(42px, 4.4vw, 62px); font-weight: 440; line-height: .92; letter-spacing: -.045em; }
-.form-step-heading h3:focus { outline: none; }
-.admission-form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
-.admission-form legend { max-width: 680px; margin: 0 0 13px; padding: 0; font-family: var(--font-display); font-size: clamp(23px, 2.2vw, 31px); font-weight: 430; line-height: 1.18; letter-spacing: -.035em; }
-.question-hint { max-width: 610px; margin: 0 0 28px; color: var(--soft-ink); font-size: 12px; line-height: 1.65; }
-.admission-form label:not(.choice-option):not(.check-field) { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.admission-form label:not(.choice-option):not(.check-field) > span:first-child { font-size: 10px; font-weight: 720; line-height: 1.45; letter-spacing: .11em; text-transform: uppercase; }
+/* Information form */
+.information { display: grid; grid-template-columns: minmax(280px, 4fr) minmax(0, 8fr); gap: clamp(60px, 7vw, 110px); align-items: start; }
+.information-intro { position: sticky; top: 38px; }
+.information-intro h2 { font-size: clamp(55px, 6vw, 86px); }
+.information-intro h2 em { color: #73746e; }
+.information-intro > p:not(.section-kicker) { max-width: 430px; margin: 38px 0 0; color: var(--soft-ink); font-size: 16px; line-height: 1.7; }
+.information-note { max-width: 430px; margin-top: 42px; padding: 22px 0; display: grid; gap: 7px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.information-note span, .information-note small { color: var(--soft-ink); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
+.information-note strong { font-family: var(--font-display); font-size: 21px; font-weight: 480; }
+.information-form { min-width: 0; padding: clamp(32px, 4.5vw, 64px); border: 1px solid var(--line); background: rgba(255,255,255,.28); }
+.information-form-heading { margin-bottom: 48px; }
+.information-form-heading > p { margin: 0 0 12px; color: var(--accent-text); font-size: 9px; font-weight: 720; letter-spacing: .15em; text-transform: uppercase; }
+.information-form-heading h3 { font-size: clamp(42px, 4.4vw, 62px); font-weight: 440; line-height: .92; letter-spacing: -.045em; }
+.information-form > label:not(.check-field), .information-form .field-row > label { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+.information-form > label:not(.check-field) > span:first-child, .information-form .field-row > label > span:first-child { font-size: 10px; font-weight: 720; line-height: 1.45; letter-spacing: .11em; text-transform: uppercase; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.admission-form input:not([type="checkbox"]):not([type="radio"]), .admission-form select, .admission-form textarea { width: 100%; min-height: 56px; border: 1px solid #bbbcb5; border-radius: 0; padding: 15px 16px; outline: none; background: rgba(255,255,255,.42); color: var(--ink); transition: border .2s ease, background .2s ease, box-shadow .2s ease; }
-.admission-form textarea { min-height: 112px; line-height: 1.6; resize: vertical; }
-.admission-form input:focus, .admission-form select:focus, .admission-form textarea:focus { border-color: var(--ink); background: rgba(255,255,255,.72); box-shadow: 0 0 0 3px rgba(217,74,54,.10); }
-.admission-form input[aria-invalid="true"], .admission-form textarea[aria-invalid="true"] { border-color: var(--accent); }
-.admission-form input::placeholder, .admission-form textarea::placeholder { color: #9a9b95; }
-.choice-grid { margin-top: 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.choice-option { margin: 0; position: relative; cursor: pointer; }
-.choice-option input { position: absolute; opacity: 0; pointer-events: none; }
-.choice-option > span { min-height: 58px; padding: 13px 15px; display: flex; align-items: center; gap: 12px; border: 1px solid #c1c2bb; background: rgba(255,255,255,.24); font-size: 12px; font-weight: 560; line-height: 1.4; transition: border .2s ease, background .2s ease, color .2s ease; }
-.choice-option > span::before { content: ""; width: 17px; height: 17px; flex: 0 0 17px; border: 1px solid #9fa099; background: var(--paper); }
-.choice-option input[type="radio"] + span::before { border-radius: 50%; }
-.choice-option input:checked + span { border-color: var(--ink); background: var(--ink); color: #fff; }
-.choice-option input:checked + span::before { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 4px var(--ink); }
-.choice-option input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
-.choice-grid[aria-invalid="true"] { outline: 1px solid var(--accent); outline-offset: 6px; }
-.open-question { margin-top: 52px !important; }
-.open-question.first-question { margin-top: 0 !important; }
-.nested-fieldset { margin-top: 58px !important; padding-top: 52px !important; border-top: 1px solid var(--line) !important; }
-.nested-fieldset[aria-invalid="true"] { outline: 1px solid var(--accent); outline-offset: 8px; }
+.information-form input:not([type="checkbox"]):not([type="radio"]), .information-form select, .information-form textarea { width: 100%; min-height: 56px; border: 1px solid #bbbcb5; border-radius: 0; padding: 15px 16px; outline: none; background: rgba(255,255,255,.42); color: var(--ink); transition: border .2s ease, background .2s ease, box-shadow .2s ease; }
+.information-form textarea { min-height: 132px; line-height: 1.6; resize: vertical; }
+.information-form input:focus, .information-form select:focus, .information-form textarea:focus { border-color: var(--ink); background: rgba(255,255,255,.72); box-shadow: 0 0 0 3px rgba(217,74,54,.10); }
+.information-form input[aria-invalid="true"], .information-form select[aria-invalid="true"], .information-form textarea[aria-invalid="true"] { border-color: var(--accent); }
+.information-form input::placeholder, .information-form textarea::placeholder { color: #9a9b95; }
 .field-error { margin-top: -2px; color: #b83726; font-size: 11px; font-weight: 650; line-height: 1.45; }
-.admission-form .check-field { margin: 48px 0 0; display: flex; flex-direction: row; align-items: flex-start; gap: 12px; }
+.contact-preference { min-width: 0; margin: 12px 0 0; padding: 32px 0 0; border: 0; border-top: 1px solid var(--line); }
+.contact-preference legend { padding: 0; font-size: 10px; font-weight: 720; letter-spacing: .11em; text-transform: uppercase; }
+.contact-preference legend small { margin-left: 8px; color: var(--muted-readable); font-size: 8px; }
+.contact-preference > div { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 9px; }
+.contact-preference label { position: relative; cursor: pointer; }
+.contact-preference input { position: absolute; opacity: 0; pointer-events: none; }
+.contact-preference span { min-height: 44px; padding: 0 18px; display: inline-flex; align-items: center; border: 1px solid #bbbcb5; background: rgba(255,255,255,.24); font-size: 10px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; transition: border .2s ease, background .2s ease, color .2s ease; }
+.contact-preference input:checked + span { border-color: var(--ink); background: var(--ink); color: #fff; }
+.contact-preference input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.information-form .check-field { margin: 38px 0 0; display: flex; flex-direction: row; align-items: flex-start; gap: 12px; }
 .check-field input { width: 18px; height: 18px; margin: 1px 0 0; flex: 0 0 18px; accent-color: var(--accent); }
 .check-field span { color: var(--soft-ink); font-size: 11px !important; font-weight: 400 !important; line-height: 1.4; letter-spacing: 0 !important; text-transform: none !important; }
 .check-field a { text-decoration: underline; }
 .privacy-check input[aria-invalid="true"] { outline: 2px solid var(--accent); outline-offset: 3px; }
-.form-actions { min-height: 56px; margin-top: 56px; padding-top: 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); }
-.form-back { min-height: 48px; padding: 0; border: 0; background: transparent; color: var(--soft-ink); font-size: 9px; font-weight: 720; letter-spacing: .13em; text-transform: uppercase; cursor: pointer; }
-.form-back:hover { color: var(--ink); }
-.demo-form-note { margin: 24px 0 0; color: var(--muted-readable); font-size: 10px; line-height: 1.55; }
-.admission-confirmation { min-height: 650px; padding: clamp(38px, 5vw, 72px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; border: 1px solid var(--line); background: rgba(255,255,255,.30); }
-.confirmation-mark { width: 50px; height: 50px; margin-bottom: 44px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; }
-.confirmation-mark i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 20px rgba(217,74,54,.55); }
-.admission-confirmation h3 { margin: 0 0 38px; font-size: clamp(54px, 6.2vw, 86px); line-height: .9; }
-.admission-confirmation > p:not(.section-kicker):not(.demo-disclaimer) { max-width: 590px; margin: 0 0 16px; color: var(--soft-ink); font-size: 16px; line-height: 1.7; }
-.admission-confirmation .demo-disclaimer { max-width: 560px; margin: 26px 0 36px; padding: 16px 18px; border-left: 3px solid var(--accent); background: var(--paper-deep); color: #696a65; font-size: 11px; line-height: 1.55; }
-
-@keyframes form-step-in {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+.information-form-action { margin-top: 42px; padding-top: 28px; display: flex; align-items: center; gap: 24px; border-top: 1px solid var(--line); }
+.information-form-action > p { max-width: 360px; margin: 0; color: var(--muted-readable); font-size: 10px; line-height: 1.55; }
+.demo-validation { margin: 22px 0 0; padding: 16px 18px; border-left: 3px solid var(--accent); background: var(--paper-deep); color: #696a65; font-size: 11px; line-height: 1.55; }
 
 /* Contact and footer */
 .contact { padding-block: 90px; background: linear-gradient(120deg, #c93f2c, var(--accent)); color: #fff; }
@@ -449,7 +412,7 @@ footer { padding-top: 80px; background: var(--paper); }
   .faculty-heading, .invited-heading { gap: 38px; }
   .faculty-list { gap: 24px; }
   .invited-grid { gap: 12px; }
-  .admission { gap: 50px; }
+  .information { gap: 50px; }
   .video-grid { gap: 12px; }
 }
 
@@ -543,7 +506,7 @@ footer { padding-top: 80px; background: var(--paper); }
   .intensive-directory > div > div { margin-top: 40px; }
   .intensive-access { margin-bottom: 88px; padding: 58px 24px !important; display: block; }
   .intensive-access > div:last-child { margin-top: 42px; }
-  .intensive-form-status { width: 100%; min-height: 64px; justify-content: center; text-align: center; }
+  .intensive-access .button { width: 100%; }
   .faculty-heading { padding-bottom: 58px; display: block; }
   .faculty-heading h2 { font-size: 12.2vw; }
   .faculty-heading > p { margin-top: 34px; }
@@ -565,30 +528,17 @@ footer { padding-top: 80px; background: var(--paper); }
   .testimonial-entry, .testimonial-entry:nth-child(1), .testimonial-entry:nth-child(2), .testimonial-entry:nth-child(3) { min-height: 280px; padding: 34px 0; border-left: 0; border-bottom: 1px solid var(--line); }
   .testimonial-entry:last-child { border-bottom: 0; }
   .testimonial-quote { margin-top: 28px; }
-  .admission { display: block; }
-  .admission-intro { position: static; }
-  .admission-intro h2 { font-size: 13.8vw; }
-  .admission-process { margin-top: 40px; }
-  .admission-form { margin-top: 70px; padding: 28px 18px; }
-  .admission-progress > p { margin-bottom: 18px; }
-  .admission-progress ol::before { left: 12px; right: 12px; top: 13px; }
-  .admission-progress li { justify-items: center; }
-  .admission-progress li i { width: 27px; height: 27px; font-size: 7px; }
-  .admission-progress li span { display: none; }
-  .form-step { margin-top: 40px; padding-top: 38px; }
-  .form-step-heading { margin-bottom: 38px; }
-  .form-step-heading h3 { font-size: 12vw; }
-  .admission-form legend { font-size: 24px; }
+  .information { display: block; }
+  .information-intro { position: static; }
+  .information-intro h2 { font-size: 13.8vw; }
+  .information-form { margin-top: 70px; padding: 28px 18px; }
+  .information-form-heading { margin-bottom: 38px; }
+  .information-form-heading h3 { font-size: 12vw; }
   .field-row { grid-template-columns: 1fr; gap: 0; }
-  .choice-grid { grid-template-columns: 1fr; }
-  .open-question { margin-top: 42px !important; }
-  .nested-fieldset { margin-top: 46px !important; padding-top: 42px !important; }
-  .form-actions { align-items: stretch; flex-direction: column-reverse; }
-  .form-actions > span { display: none; }
-  .form-actions .button, .form-back { width: 100%; justify-content: space-between; }
-  .form-back { padding: 15px 0; text-align: left; }
-  .admission-confirmation { min-height: 590px; padding: 38px 24px; }
-  .admission-confirmation h3 { font-size: 14vw; }
+  .contact-preference > div { display: grid; grid-template-columns: 1fr; }
+  .contact-preference span { width: 100%; }
+  .information-form-action { align-items: stretch; flex-direction: column; }
+  .information-form-action .button { width: 100%; }
   .contact-grid { display: block; }
   .contact-items { margin-top: 45px; }
   .contact-items p { flex-direction: column; gap: 8px; }

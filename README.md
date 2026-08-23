@@ -33,7 +33,7 @@ Los datos de identidad y contenidos generales están en [`config/site.ts`](confi
 - fechas y condiciones del curso anual;
 - redes y datos legales pendientes.
 
-El Intensivo Profesional se gestiona desde [`config/intensive.ts`](config/intensive.ts), incluyendo datos, narrativa, prueba de acceso y preparación del futuro directorio de talento. El equipo docente se gestiona desde [`config/faculty.ts`](config/faculty.ts). Las fotografías integradas en las secciones, los vídeos de “Así se trabaja” y los testimonios se gestionan desde [`config/media.ts`](config/media.ts). El componente [`components/Brand.tsx`](components/Brand.tsx) centraliza la representación de marca en cabecera, pie y páginas legales.
+El Intensivo Profesional se gestiona desde [`config/intensive.ts`](config/intensive.ts), incluyendo datos, narrativa, valoración previa y preparación del futuro directorio de talento. El formulario público y su futura integración se modelan en [`config/information.ts`](config/information.ts). El equipo docente se gestiona desde [`config/faculty.ts`](config/faculty.ts). Las fotografías integradas en las secciones, los vídeos de “Así se trabaja” y los testimonios se gestionan desde [`config/media.ts`](config/media.ts). El componente [`components/Brand.tsx`](components/Brand.tsx) centraliza la representación de marca en cabecera, pie y páginas legales.
 
 El enlace de acceso a alumnos y las URLs de Instagram, TikTok, Facebook y YouTube también están centralizados en `config/site.ts`. Mientras una URL permanezca vacía, la interfaz muestra un estado pendiente no interactivo y no genera enlaces rotos.
 
@@ -70,11 +70,25 @@ Antes de publicar fotografías, vídeos o testimonios identificables de alumnos 
 - Revisión de las cookies y servicios de terceros realmente utilizados.
 - Consentimiento específico para el uso promocional de fotografías, vídeos y testimonios de alumnos.
 
-## Formulario
+## Captación pública y futura Gestión Escuela
 
-El formulario de admisión funciona en modo demostración: valida los campos en el navegador, muestra una confirmación y no envía ni almacena datos. La lógica está aislada en [`components/AdmissionForm.tsx`](components/AdmissionForm.tsx) para poder conectarla después a un endpoint, servicio de formularios o correo.
+La web pública utiliza un único formulario sencillo para solicitar información. No gestiona admisiones, matrículas, entrevistas ni pruebas de acceso, y todavía no envía ni almacena datos porque no existe un backend conectado.
 
-El CTA del Intensivo Profesional no utiliza este formulario. Por ahora dirige a un bloque propio claramente identificado como pendiente de activar. Su futura solicitud deberá recoger únicamente la información necesaria para valorar formación previa, experiencia y objetivos, con su tratamiento legal correspondiente.
+Cuando se conecte con “Gestión Escuela”, cada envío podrá crear un registro de **Nuevo contacto / candidato potencial** con origen web, formación de interés, datos de contacto, mensaje, preferencia de contacto y fecha. Esa integración no está implementada todavía.
+
+### Modelo conceptual de candidato conservado
+
+El antiguo formulario público de cinco pasos se retira, pero su modelo de información se conserva como referencia para una futura ficha de candidato y entrevista previa dentro de “Gestión Escuela”:
+
+- datos personales y de contacto;
+- experiencia y formación previa;
+- intereses interpretativos y vocales;
+- objetivos de formación;
+- disponibilidad;
+- perfil pedagógico y motivación;
+- expectativas profesionales.
+
+Este modelo pertenece al proceso interno posterior. No debe volver a solicitarse en la web pública ni interpretarse como una admisión o matrícula iniciada online.
 
 ## Arquitectura futura del directorio de talento
 
@@ -97,6 +111,7 @@ La estructura futura `FutureTalentProfile` contempla nombre profesional, fotogra
 - `app/*legal*/page.tsx`: páginas legales provisionales.
 - `components/`: marca, formulario, medios, enlaces configurables y layout legal reutilizables.
 - `config/site.ts`: identidad, cursos y datos generales.
+- `config/information.ts`: formulario público y contrato futuro con Gestión Escuela.
 - `config/intensive.ts`: contenido del Intensivo y arquitectura futura del directorio de talento.
 - `config/faculty.ts`: perfiles y fotografías del equipo docente.
 - `config/media.ts`: fotografías de sección, vídeos, testimonios y créditos.

@@ -34,7 +34,7 @@ export const intensiveConfig = {
     { label: "Trabajo total", value: "16 horas" },
     { label: "Formato", value: "4 jornadas de 4 horas" },
     { label: "Grupo", value: "Máximo 2 participantes" },
-    { label: "Acceso", value: "Prueba previa" },
+    { label: "Acceso", value: "Valoración previa" },
   ],
   assessment: {
     title: "Antes de entrar en sala",
@@ -122,13 +122,13 @@ export const intensiveConfig = {
     status: "Directorio pendiente de desarrollo y conexión con la plataforma de gestión de la escuela.",
   },
   access: {
-    cta: "Solicitar prueba de acceso",
-    href: "#intensive-access",
-    title: "Prueba de acceso al Intensivo Profesional",
+    cta: "Solicita información sobre el Intensivo",
+    href: "/?formacion=intensivo#informacion",
+    title: "Acceso con valoración previa",
     description:
-      "Este proceso tendrá un formulario propio para conocer la formación previa, la experiencia y los objetivos del candidato.",
+      "El acceso requiere formación o experiencia previa y una valoración o prueba antes de incorporarse. Solicitar información en esta web no inicia ese proceso.",
     availability: "Máximo 2 participantes por edición",
-    status: "Formulario específico pendiente de activar",
+    status: "La valoración se gestiona fuera de la web pública",
   },
 } as const;
 

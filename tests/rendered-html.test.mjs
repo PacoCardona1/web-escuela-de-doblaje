@@ -24,8 +24,8 @@ test("server-renders the production homepage", async () => {
   assert.match(html, /Identidad provisional/i);
   assert.doesNotMatch(html, /\bEDS\b/i);
   assert.match(html, /Aprende doblaje/);
-  assert.match(html, /Solicita tu plaza/i);
-  assert.match(html, /Solicitud[\s\S]*admisión/i);
+  assert.match(html, /Solicita información/i);
+  assert.doesNotMatch(html, /Solicita tu plaza|Admisión anual/i);
   assert.match(html, /Intensivo/);
   assert.match(html, /Dos días\.[\s\S]*Dos alumnos\.[\s\S]*Una convocatoria diseñada para ti\./i);
   assert.match(html, /Antes de entrar en sala/i);
@@ -37,8 +37,8 @@ test("server-renders the production homepage", async () => {
   assert.match(html, /Después del atril/i);
   assert.match(html, /futuro directorio de talento/i);
   assert.match(html, /Máximo 2 participantes por edición/i);
-  assert.match(html, /href="#intensive-access"/i);
-  assert.match(html, /id="intensive-access"/i);
+  assert.match(html, /Solicita información sobre el Intensivo/i);
+  assert.match(html, /formacion=intensivo#informacion/i);
   assert.doesNotMatch(html, /te conseguiremos trabajo|encontraremos trabajo para ti|bolsa de empleo garantizada|acceso directo a estudios/i);
   assert.match(html, /Paco Cardona/);
   assert.match(html, /Ahimsa Sánchez/);
@@ -46,7 +46,10 @@ test("server-renders the production homepage", async () => {
   assert.match(html, /Perfil pendiente/);
   assert.match(html, /Acceso alumnos/);
   assert.match(html, /Próximamente/);
-  assert.match(html, /Admisión anual/);
+  assert.match(html, /id="informacion"/i);
+  assert.match(html, /Formulario único[\s\S]*Información/i);
+  assert.match(html, /Política de privacidad/i);
+  assert.match(html, /Modo demostración: todavía no existe envío/i);
   assert.match(html, /Redes sociales/);
   assert.match(html, /Vídeo pendiente/);
   assert.match(html, /Testimonio real pendiente/);
@@ -55,15 +58,23 @@ test("server-renders the production homepage", async () => {
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/i);
 });
 
-test("demo and future-profile flows remain explicit and disconnected", async () => {
-  const [admissionSource, intensiveSource] = await Promise.all([
-    readFile(new URL("../components/AdmissionForm.tsx", import.meta.url), "utf8"),
+test("information and future-profile flows remain explicit and disconnected", async () => {
+  const [informationSource, informationConfig, intensiveSource, readme] = await Promise.all([
+    readFile(new URL("../components/InformationForm.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../config/information.ts", import.meta.url), "utf8"),
     readFile(new URL("../config/intensive.ts", import.meta.url), "utf8"),
+    readFile(new URL("../README.md", import.meta.url), "utf8"),
   ]);
 
-  assert.match(admissionSource, /Finalizar demostración/i);
-  assert.match(admissionSource, /No se ha enviado ni almacenado ninguna respuesta/i);
-  assert.doesNotMatch(admissionSource, /Solicitud recibida|Enviar solicitud/i);
+  assert.match(informationSource, /No se ha enviado ni almacenado ninguna información/i);
+  assert.match(informationSource, /privacyAccepted/i);
+  assert.match(informationSource, /formacion[\s\S]*intensivo/i);
+  assert.doesNotMatch(informationSource, /fetch\(|axios|Solicitud recibida|Enviar solicitud/i);
+  assert.match(informationConfig, /backendConnected: false/i);
+  assert.match(informationConfig, /Nuevo contacto \/ candidato potencial/i);
+  assert.match(informationConfig, /origin: "website"/i);
+  assert.match(readme, /Modelo conceptual de candidato conservado/i);
+  assert.match(readme, /perfil pedagógico[\s\S]*expectativas profesionales/i);
   assert.match(intensiveSource, /backendConnected: false/i);
   assert.match(intensiveSource, /Consentimiento voluntario para formar parte del directorio/i);
   assert.match(intensiveSource, /no implica aparecer en el directorio ni autoriza la publicación/i);

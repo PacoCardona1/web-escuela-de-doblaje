@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { InformationLink } from "./InformationLink";
 import { intensiveConfig } from "../config/intensive";
 import type { ImageAsset } from "../config/media";
 
@@ -19,7 +20,7 @@ export function IntensiveExperience({ image }: IntensiveExperienceProps) {
         </figure>
 
         <div className="intensive-opening-copy">
-          <p className="section-kicker light"><span className="rec-dot" /> Intensivo profesional · Acceso mediante prueba</p>
+          <p className="section-kicker light"><span className="rec-dot" /> Intensivo profesional · Acceso mediante valoración</p>
           <h2 id="intensive-title">
             {intensive.headline.lines.map((line) => <span key={line}>{line}</span>)}
             <em>{intensive.headline.emphasis}</em>
@@ -35,7 +36,7 @@ export function IntensiveExperience({ image }: IntensiveExperienceProps) {
           </dl>
 
           <div className="intensive-opening-action">
-            <a className="button button-light" href={intensive.access.href}>{intensive.access.cta} <span>↓</span></a>
+            <InformationLink className="button button-light" href={intensive.access.href} interest="intensive">{intensive.access.cta} <span>↓</span></InformationLink>
             <strong>{intensive.access.availability}</strong>
           </div>
         </div>
@@ -147,7 +148,8 @@ export function IntensiveExperience({ image }: IntensiveExperienceProps) {
           <div>
             <strong>{intensive.access.availability}</strong>
             <p>{intensive.access.description}</p>
-            <span className="intensive-form-status" aria-disabled="true">{intensive.access.status}</span>
+            <InformationLink className="button button-light" href={intensive.access.href} interest="intensive">{intensive.access.cta} <span>↓</span></InformationLink>
+            <small className="intensive-access-status">{intensive.access.status}</small>
           </div>
         </section>
       </div>

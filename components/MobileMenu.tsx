@@ -25,7 +25,7 @@ export function MobileMenu() {
         <a href="#intensivo">Intensivo</a>
         <a href="#direccion">Dirección</a>
         <StudentAccess />
-        <a href="#admision">Admisión anual</a>
+        <a href="#informacion">Información</a>
       </div>
     </details>
   );

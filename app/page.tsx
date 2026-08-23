@@ -1,4 +1,4 @@
-import { AdmissionForm } from "../components/AdmissionForm";
+import { InformationForm } from "../components/InformationForm";
 import { Brand } from "../components/Brand";
 import { IntensiveExperience } from "../components/IntensiveExperience";
 import { Testimonials, WorkVideos } from "../components/MediaShowcase";
@@ -27,7 +27,7 @@ export default function Home() {
             <a href="#metodologia">Metodología</a>
             <a href="#intensivo">Intensivo</a>
             <a href="#direccion">Dirección</a>
-            <a className="nav-cta" href="#admision">Admisión anual</a>
+            <a className="nav-cta" href="#informacion">Información</a>
             <StudentAccess />
           </div>
           <MobileMenu />
@@ -37,7 +37,7 @@ export default function Home() {
           <h1>Aprende doblaje.<br /><em>Trabaja en sala.</em></h1>
           <p className="hero-copy">Una formación práctica para entender el oficio desde el atril, con dirección y seguimiento individual.</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#admision">Solicita tu plaza <span>↗</span></a>
+            <a className="button button-primary" href="#informacion">Solicita información <span>↗</span></a>
             <a className="button button-ghost" href="#curso">Conocer el curso <span>↓</span></a>
           </div>
         </div>
@@ -58,6 +58,8 @@ export default function Home() {
             <div className="course-lead">
               <p>Una formación práctica y progresiva. El alumno pasa tiempo real trabajando ante el atril, recibe dirección y aprende a transformar cada indicación en una decisión interpretativa.</p>
               <p>El seguimiento es continuado durante todo el curso, dentro de un grupo fijo y reducido.</p>
+              <p>Las plazas son limitadas. Antes de incorporarse, la escuela realiza una entrevista y valoración fuera de la web pública.</p>
+              <a className="button button-dark" href="#informacion">Solicita información <span>↗</span></a>
             </div>
             <div className="course-facts">
               <article><span>01</span><strong>{annualCourse.weeklySchedule}</strong><p>Un ritmo constante para integrar lo aprendido.</p></article>
@@ -189,20 +191,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="admission section shell" id="admision">
-        <div className="admission-intro">
-          <p className="section-kicker">06 · Admisión anual</p>
-          <h2>Solicitud<br />de<br /><em>admisión.</em></h2>
-          <p>Queremos conocerte con calma. No es una oposición: es un proceso cercano para entender tu perfil, tus objetivos y la disponibilidad de plaza.</p>
-          <ol className="admission-process" aria-label="Proceso de admisión anual">
-            <li><span>01</span><div><strong>Solicitud</strong><small>El candidato completa su perfil.</small></div></li>
-            <li><span>02</span><div><strong>Revisión</strong><small>La escuela revisa la solicitud.</small></div></li>
-            <li><span>03</span><div><strong>Entrevista</strong><small>Entrevista personal para conocer al candidato y sus objetivos.</small></div></li>
-            <li><span>04</span><div><strong>Plaza</strong><small>Confirmación de admisión y disponibilidad de plaza.</small></div></li>
-          </ol>
-          <div className="admission-note"><span>Plazas limitadas</span><strong>{annualCourse.period}</strong><small>{annualCourse.groupSize}</small></div>
+      <section className="information section shell" id="informacion">
+        <div className="information-intro">
+          <p className="section-kicker">06 · Información</p>
+          <h2>Solicita<br /><em>información.</em></h2>
+          <p>Cuéntanos qué formación te interesa y cómo podemos ayudarte. Este formulario sirve únicamente para solicitar información: no inicia una admisión, una prueba de acceso ni una matrícula.</p>
+          <div className="information-note"><span>Curso Anual</span><strong>{annualCourse.period}</strong><small>{annualCourse.groupSize} · Plazas limitadas</small></div>
         </div>
-        <AdmissionForm />
+        <InformationForm />
       </section>
 
       <section className="contact" id="contacto">
@@ -221,7 +217,7 @@ export default function Home() {
           <a href="#inicio"><Brand dark /></a>
           <p>Formación práctica de doblaje<br />en {siteConfig.location}.</p>
           <nav className="footer-nav" aria-label="Navegación de pie">
-            <a href="#curso">Curso anual</a><a href="#intensivo">Intensivo</a><a href="#direccion">Dirección</a><a href="#admision">Admisión anual</a>
+            <a href="#curso">Curso anual</a><a href="#intensivo">Intensivo</a><a href="#direccion">Dirección</a><a href="#informacion">Información</a>
           </nav>
           <SocialLinks />
         </div>
