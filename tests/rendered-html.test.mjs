@@ -20,13 +20,24 @@ test("server-renders the production homepage", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /Escuela de Doblaje/);
-  assert.match(html, /Identidad provisional/i);
+  assert.match(html, /MASTER DUB/);
+  assert.match(html, /Escuela de Doblaje · Sevilla/);
+  assert.match(html, /Por Paco Cardona/);
+  assert.match(html, /masterdub\.es/);
+  assert.match(html, /info@masterdub\.es/);
+  assert.doesNotMatch(html, /mailto:/i);
+  assert.doesNotMatch(html, /Identidad provisional/i);
   assert.doesNotMatch(html, /\bEDS\b/i);
   assert.match(html, /Aprende doblaje/);
+  assert.match(html, /Grupos muy reducidos/i);
+  assert.doesNotMatch(html, /Máximo 8 alumnos|8 alumnos/i);
+  assert.match(html, /Mirar desde una silla[^]*aprender en el atril/i);
+  assert.match(html, /Con personajes y actores\/actrices siempre adaptados a tu edad y tipo de voz/i);
   assert.match(html, /Solicita información/i);
   assert.doesNotMatch(html, /Solicita tu plaza|Admisión anual/i);
   assert.match(html, /Intensivo/);
+  assert.match(html, /No saldrás del atril[^]*Con posibilidad de asistir como oyente a trabajos reales/i);
+  assert.match(html, /Invierte tu tiempo, tu dinero, tus ilusiones y tu futuro en manos de auténticos profesionales/i);
   assert.match(html, /Dos días\.[\s\S]*Dos alumnos\.[\s\S]*Una convocatoria diseñada para ti\./i);
   assert.match(html, /Antes de entrar en sala/i);
   assert.match(html, /No todos los participantes trabajan exactamente el mismo material/i);

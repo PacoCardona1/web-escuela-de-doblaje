@@ -33,9 +33,9 @@ export default function Home() {
           <MobileMenu />
         </nav>
         <div className="hero-content shell">
-          <p className="eyebrow"><span /> Formación de doblaje en {siteConfig.location}</p>
-          <h1>Aprende doblaje.<br /><em>Trabaja en sala.</em></h1>
-          <p className="hero-copy">Una formación práctica para entender el oficio desde el atril, con dirección y seguimiento individual.</p>
+          <p className="eyebrow"><span /> {siteConfig.brand.descriptor}</p>
+          <h1>Aprende doblaje.<br /><em>Trabaja como se trabaja en sala.</em></h1>
+          <p className="hero-copy">Una formación práctica para entender el oficio desde el atril, con seguimiento de directores en activo con más de 30 años de experiencia continua y demostrable.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#informacion">Solicita información <span>↗</span></a>
             <a className="button button-ghost" href="#curso">Conocer el curso <span>↓</span></a>
@@ -51,12 +51,12 @@ export default function Home() {
       <section className="course section shell" id="curso">
         <div className="section-heading">
           <p className="section-kicker">01 · Curso anual</p>
-          <h2>El atril no se aprende<br />desde una silla.</h2>
+          <h2>Mirar desde una silla no es lo mismo que aprender en el atril.</h2>
         </div>
         <div className="course-overview">
           <div className="course-details">
             <div className="course-lead">
-              <p>Una formación práctica y progresiva. El alumno pasa tiempo real trabajando ante el atril, recibe dirección y aprende a transformar cada indicación en una decisión interpretativa.</p>
+              <p>Una formación práctica y progresiva. El alumno pasa tiempo real trabajando ante el atril, recibe dirección y aprende a transformar cada indicación en una decisión interpretativa. Con personajes y actores/actrices siempre adaptados a tu edad y tipo de voz.</p>
               <p>El seguimiento es continuado durante todo el curso, dentro de un grupo fijo y reducido.</p>
               <p>Las plazas son limitadas. Antes de incorporarse, la escuela realiza una entrevista y valoración fuera de la web pública.</p>
               <a className="button button-dark" href="#informacion">Solicita información <span>↗</span></a>
@@ -214,15 +214,15 @@ export default function Home() {
 
       <footer>
         <div className="shell footer-top">
-          <a href="#inicio"><Brand dark /></a>
-          <p>Formación práctica de doblaje<br />en {siteConfig.location}.</p>
+          <a href="#inicio" aria-label={`${siteConfig.brand.name}, inicio`}><Brand dark full /></a>
+          <p className="footer-identity">{siteConfig.brand.descriptor}<br /><span>{siteConfig.contact.email}</span></p>
           <nav className="footer-nav" aria-label="Navegación de pie">
             <a href="#curso">Curso anual</a><a href="#intensivo">Intensivo</a><a href="#direccion">Dirección</a><a href="#informacion">Información</a>
           </nav>
           <SocialLinks />
         </div>
         <div className="shell footer-bottom">
-          <p>© {new Date().getFullYear()} {siteConfig.brand.name} · {siteConfig.brand.status === "provisional" ? "Identidad provisional" : siteConfig.brand.status}</p>
+          <p>© {new Date().getFullYear()} {siteConfig.brand.name} · {siteConfig.brand.domain}</p>
           <div><a href="/aviso-legal">Aviso legal</a><a href="/politica-de-privacidad">Privacidad</a><a href="/politica-de-cookies">Cookies</a></div>
           <p>Imágenes provisionales: {mediaConfig.credits.join(" · ")}</p>
         </div>

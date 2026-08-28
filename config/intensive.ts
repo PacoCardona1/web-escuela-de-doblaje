@@ -28,6 +28,17 @@ export const intensiveConfig = {
   },
   introduction:
     "Una experiencia de formación avanzada para personas con formación o experiencia previa que quieren acercar su trabajo a las condiciones reales de la profesión.",
+  experience: [
+    "No saldrás del atril.",
+    "Realizarás convocatorias completas.",
+    "A ritmo profesional.",
+    "Con director profesional en activo.",
+    "Trabajos de películas, series, animación y mucho más.",
+    "En una sala de un estudio profesional en activo.",
+    "Con posibilidad de asistir como oyente a trabajos reales.",
+  ],
+  investmentStatement:
+    "Invierte tu tiempo, tu dinero, tus ilusiones y tu futuro en manos de auténticos profesionales.",
   eligibility: "Requiere formación o experiencia previa",
   facts: [
     { label: "Duración", value: "2 días" },

@@ -27,6 +27,10 @@ export function IntensiveExperience({ image }: IntensiveExperienceProps) {
           </h2>
           <p className="intensive-director">Dirigido por {intensive.director}</p>
           <p className="intensive-copy">{intensive.introduction}</p>
+          <ul className="intensive-experience">
+            {intensive.experience.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <p className="intensive-investment">{intensive.investmentStatement}</p>
           <p className="intensive-eligibility">{intensive.eligibility}</p>
 
           <dl className="intensive-facts">

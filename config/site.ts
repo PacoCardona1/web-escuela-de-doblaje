@@ -4,11 +4,26 @@ const siteLocation = "Sevilla";
 
 export const siteConfig = {
   brand: {
-    name: "Escuela de Doblaje",
-    shortName: "ED",
-    status: "provisional",
-    logo: null,
-    favicon: "/favicon.svg",
+    name: "MASTER DUB",
+    shortName: "MASTER DUB",
+    descriptor: `Escuela de Doblaje · ${siteLocation}`,
+    signature: "Por Paco Cardona",
+    domain: "masterdub.es",
+    logo: {
+      symbol: {
+        light: "/brand/master-dub-symbol-light.png",
+        dark: "/brand/master-dub-symbol-dark.png",
+      },
+      wordmark: {
+        light: "/brand/master-dub-wordmark-light.png",
+        dark: "/brand/master-dub-wordmark-dark.png",
+      },
+      full: {
+        light: "/brand/master-dub-logo-light.png",
+        dark: "/brand/master-dub-logo-dark.png",
+      },
+    },
+    favicon: "/brand/master-dub-symbol-dark.png",
   },
   location: siteLocation,
   description:
@@ -17,7 +32,7 @@ export const siteConfig = {
     period: "Octubre — Junio",
     weeklySchedule: "1 día por semana",
     classDuration: "3 horas por clase",
-    groupSize: "Máximo 8 alumnos",
+    groupSize: "Grupos muy reducidos",
     access: "Entrevista previa",
     areas: [
       "Interpretación",
@@ -25,12 +40,13 @@ export const siteConfig = {
       "Técnica de atril",
       "Personajes y registros",
       "Recepción y aplicación de indicaciones",
+      "Técnica vocal",
       "Adaptación progresiva al ritmo profesional",
-      "Técnica vocal cuando resulte necesario",
     ],
   },
   contact: {
-    email: "",
+    email: "info@masterdub.es",
+    emailOperational: false,
     phone: "",
     address: "",
   },

@@ -1,6 +1,6 @@
-# Escuela de Doblaje
+# MASTER DUB
 
-Web provisional de una escuela de doblaje en Sevilla. El proyecto está construido con React, TypeScript y vinext, con una arquitectura preparada para crecer sin haber conectado todavía ningún backend ni servicio externo.
+Web de **MASTER DUB · Escuela de Doblaje · Sevilla**, creada y dirigida por Paco Cardona. El proyecto está construido con React, TypeScript y vinext, con una arquitectura preparada para crecer sin haber conectado todavía ningún backend ni servicio externo.
 
 ## Requisitos
 
@@ -28,7 +28,7 @@ npm test
 
 Los datos de identidad y contenidos generales están en [`config/site.ts`](config/site.ts):
 
-- nombre provisional y favicon;
+- nombre, descriptor, firma, dominio, email previsto y assets de marca;
 - ubicación y datos de contacto;
 - fechas y condiciones del curso anual;
 - redes y datos legales pendientes.
@@ -36,6 +36,8 @@ Los datos de identidad y contenidos generales están en [`config/site.ts`](confi
 El Intensivo Profesional se gestiona desde [`config/intensive.ts`](config/intensive.ts), incluyendo datos, narrativa, valoración previa y preparación del futuro directorio de talento. El formulario público y su futura integración se modelan en [`config/information.ts`](config/information.ts). El equipo docente se gestiona desde [`config/faculty.ts`](config/faculty.ts). Las fotografías integradas en las secciones, los vídeos de “Así se trabaja” y los testimonios se gestionan desde [`config/media.ts`](config/media.ts). El componente [`components/Brand.tsx`](components/Brand.tsx) centraliza la representación de marca en cabecera, pie y páginas legales.
 
 El enlace de acceso a alumnos y las URLs de Instagram, TikTok, Facebook y YouTube también están centralizados en `config/site.ts`. Mientras una URL permanezca vacía, la interfaz muestra un estado pendiente no interactivo y no genera enlaces rotos.
+
+El correo previsto `info@masterdub.es` se muestra únicamente como dato informativo mientras `emailOperational` sea `false`; la web no crea todavía enlaces de correo ni conecta ningún envío.
 
 ## Imágenes y contenidos pendientes
 
@@ -52,9 +54,10 @@ También permanecen deliberadamente pendientes:
 - vídeos reales de clases;
 - testimonios verificables;
 - fotografías de Paco Cardona y del profesorado;
-- dirección, teléfono, correo y redes oficiales;
+- dirección, teléfono y redes oficiales;
 - textos legales y datos fiscales;
-- nombre, logotipo e identidad definitivos.
+- activación del dominio y del correo `info@masterdub.es`;
+- adaptación de `public/og.png` a la identidad MASTER DUB antes de volver a declararla en metadata social.
 
 ## Consentimiento para contenido promocional
 
@@ -115,7 +118,8 @@ La estructura futura `FutureTalentProfile` contempla nombre profesional, fotogra
 - `config/intensive.ts`: contenido del Intensivo y arquitectura futura del directorio de talento.
 - `config/faculty.ts`: perfiles y fotografías del equipo docente.
 - `config/media.ts`: fotografías de sección, vídeos, testimonios y créditos.
-- `public/images/`: fotografías provisionales y tarjeta social.
+- `public/brand/`: derivados web optimizados del logo oficial, incluida su versión compacta.
+- `public/images/`: fotografías provisionales.
 
 ## Publicación
 

@@ -17,8 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = incomingHeaders.get("x-forwarded-host") ?? incomingHeaders.get("host") ?? "localhost:3000";
   const protocol = incomingHeaders.get("x-forwarded-proto") ?? (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
-  const title = `${siteConfig.brand.name} | Formación práctica en ${siteConfig.location}`;
-  const image = `${origin}/og.png`;
+  const title = `${siteConfig.brand.name} | ${siteConfig.brand.descriptor}`;
 
   return {
     title,
@@ -36,13 +35,11 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: siteConfig.brand.name,
       title,
       description: siteConfig.description,
-      images: [{ url: image, width: 1731, height: 909, alt: `${siteConfig.brand.name} — ${siteConfig.location}` }],
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title,
       description: siteConfig.description,
-      images: [image],
     },
   };
 }
