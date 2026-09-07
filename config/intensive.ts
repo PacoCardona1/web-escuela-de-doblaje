@@ -34,7 +34,7 @@ export const intensiveConfig = {
     "A ritmo profesional.",
     "Con director profesional en activo.",
     "Trabajos de películas, series, animación y mucho más.",
-    "En una sala de un estudio profesional en activo.",
+    "En las instalaciones de Recording Words, estudio profesional de doblaje en activo.",
     "Con posibilidad de asistir como oyente a trabajos reales.",
   ],
   investmentStatement:

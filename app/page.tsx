@@ -70,7 +70,7 @@ export default function Home() {
           </div>
           <div className="course-photo photo-frame">
             <Image src={images.annualCourse.src} alt={images.annualCourse.alt} fill sizes="(max-width: 760px) 100vw, 50vw" style={{ objectPosition: images.annualCourse.position }} />
-            <span>Fotografía provisional · Pendiente de sustituir</span>
+            {images.annualCourse.credit && <span>{images.annualCourse.credit}</span>}
           </div>
         </div>
         <div className="areas">
@@ -99,7 +99,7 @@ export default function Home() {
           <div className="method-grid">
             <div className="photo-frame dark-frame">
               <Image src={images.methodology.src} alt={images.methodology.alt} fill sizes="(max-width: 760px) 100vw, 58vw" style={{ objectPosition: images.methodology.position }} />
-              <span>Imagen de referencia · Pendiente de sustituir</span>
+              {images.methodology.credit && <span>{images.methodology.credit}</span>}
             </div>
             <div className="tracking-note">
               <span className="line-symbol" aria-hidden="true" />
@@ -111,11 +111,33 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="facilities section shell" aria-labelledby="facilities-title">
+        <div className="facilities-heading">
+          <div>
+            <p className="section-kicker">{mediaConfig.facilities.eyebrow}</p>
+            <h2 id="facilities-title">{mediaConfig.facilities.title}</h2>
+          </div>
+          <p>{mediaConfig.facilities.description}</p>
+        </div>
+        <div className="facilities-gallery">
+          {[images.facilitiesRoom, images.facilitiesWorkstation, images.facilitiesConsole].map((image) => (
+            <figure key={image.src}>
+              <Image src={image.src} alt={image.alt} fill sizes="(max-width: 760px) 100vw, 33vw" style={{ objectPosition: image.position }} />
+            </figure>
+          ))}
+        </div>
+        <p className="facilities-credit"><span />{mediaConfig.facilities.collaboration}</p>
+      </section>
+
       <section className="videos section shell" id="videos">
         <div className="section-heading split-heading">
           <div><p className="section-kicker">03 · Así se trabaja</p><h2>La sala,<br /><em>sin filtros.</em></h2></div>
           <p>Este espacio mostrará próximamente fragmentos reales de clases, dirección y trabajo ante el atril.</p>
         </div>
+        <figure className="work-detail photo-frame">
+          <Image src={images.workDetail.src} alt={images.workDetail.alt} fill sizes="(max-width: 760px) 100vw, 100vw" style={{ objectPosition: images.workDetail.position }} />
+          <figcaption>Detalle de sala · Recording Words</figcaption>
+        </figure>
         <WorkVideos />
       </section>
 
@@ -224,7 +246,7 @@ export default function Home() {
         <div className="shell footer-bottom">
           <p>© {new Date().getFullYear()} {siteConfig.brand.name} · {siteConfig.brand.domain}</p>
           <div><a href="/aviso-legal">Aviso legal</a><a href="/politica-de-privacidad">Privacidad</a><a href="/politica-de-cookies">Cookies</a></div>
-          <p>Imágenes provisionales: {mediaConfig.credits.join(" · ")}</p>
+          <p>Imágenes: {mediaConfig.credits.join(" · ")}</p>
         </div>
       </footer>
     </main>

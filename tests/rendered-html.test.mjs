@@ -29,6 +29,9 @@ test("server-renders the production homepage", async () => {
   assert.doesNotMatch(html, /Identidad provisional/i);
   assert.doesNotMatch(html, /\bEDS\b/i);
   assert.match(html, /Aprende doblaje/);
+  assert.match(html, /Aprende en un estudio de doblaje profesional/i);
+  assert.match(html, /Las clases de Master Dub se imparten en las instalaciones de Recording Words/i);
+  assert.match(html, /En colaboración con Recording Words/i);
   assert.match(html, /Grupos muy reducidos/i);
   assert.doesNotMatch(html, /Máximo 8 alumnos|8 alumnos/i);
   assert.match(html, /Mirar desde una silla[^]*aprender en el atril/i);
@@ -37,6 +40,7 @@ test("server-renders the production homepage", async () => {
   assert.doesNotMatch(html, /Solicita tu plaza|Admisión anual/i);
   assert.match(html, /Intensivo/);
   assert.match(html, /No saldrás del atril[^]*Con posibilidad de asistir como oyente a trabajos reales/i);
+  assert.match(html, /En las instalaciones de Recording Words, estudio profesional de doblaje en activo/i);
   assert.match(html, /Invierte tu tiempo, tu dinero, tus ilusiones y tu futuro en manos de auténticos profesionales/i);
   assert.match(html, /Dos días\.[\s\S]*Dos alumnos\.[\s\S]*Una convocatoria diseñada para ti\./i);
   assert.match(html, /Antes de entrar en sala/i);

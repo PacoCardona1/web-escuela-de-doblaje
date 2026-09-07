@@ -16,7 +16,7 @@ export function IntensiveExperience({ image }: IntensiveExperienceProps) {
       <div className="intensive-opening">
         <figure className="intensive-image" style={{ "--intensive-position": image.position } as CSSProperties}>
           <Image src={image.src} alt={image.alt} fill sizes="(max-width: 760px) 100vw, 48vw" />
-          <figcaption>Fotografía provisional · Pendiente de sustituir</figcaption>
+          {image.credit && <figcaption>{image.credit}</figcaption>}
         </figure>
 
         <div className="intensive-opening-copy">

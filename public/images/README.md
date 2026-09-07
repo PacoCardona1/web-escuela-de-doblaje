@@ -1,9 +1,10 @@
-# Imágenes provisionales
+# Imágenes de la web
 
-Las fotografías de esta carpeta son recursos temporales para definir la dirección visual. Deben sustituirse por fotografías reales de la escuela antes de publicar la web.
+Las rutas, textos alternativos y encuadres se centralizan en `config/media.ts`.
 
 - `hero-lab-intimate-room.jpg`: imagen principal de portada aprobada.
 - `hero-dubbing-booth-v7.jpg`: versión anterior de la portada, conservada fuera de uso.
-- `studio-session-*.jpg`: imágenes integradas en las secciones de metodología, curso y dirección.
+- `recording-words-*.jpg`: fotografías reales de las instalaciones de Recording Words obtenidas de su material público oficial e integradas en Curso Anual, Metodología, Así se trabaja, Intensivo e Instalaciones.
+- `studio-session-*.jpg`: material provisional que se conserva para los retratos claramente identificados del profesorado.
 
-Las rutas y encuadres de las fotografías de sección se centralizan en `config/media.ts`; los retratos provisionales del equipo se configuran en `config/faculty.ts`.
+No se utiliza la fotografía identificada como correspondiente a Madrid ni imágenes con material audiovisual de terceros visible en pantalla. Los retratos provisionales del equipo se configuran en `config/faculty.ts`.
