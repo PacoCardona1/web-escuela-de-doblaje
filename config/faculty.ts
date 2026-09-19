@@ -7,6 +7,7 @@ export type FacultyProfile = {
   photoAlt: string;
   photoPosition: string;
   introduction: string;
+  website: { label: string; href: string } | null;
   type: FacultyType;
 };
 
@@ -22,31 +23,32 @@ export type InvitedProfile = {
 };
 
 export const facultyTypeLabels: Record<FacultyType, string> = {
-  direccion: "Dirección de la escuela",
+  direccion: "Dirección de MASTER DUB",
   "profesorado-estable": "Profesorado estable",
   invitado: "Profesional invitado",
 };
 
 export const facultyConfig = {
+  placeholderPhoto: "/images/faculty-placeholder-pixelated.webp",
   profiles: [
     {
       name: "Paco Cardona",
-      role: "Director de doblaje · Actor · Creador y director de la escuela",
-      photo: "/images/studio-session-1.jpg",
-      photoAlt: "Fotografía provisional que no representa a Paco Cardona",
-      photoPosition: "28% center",
-      introduction:
-        "La escuela nace desde la experiencia profesional en sala, con una formación conectada a la práctica y a la realidad cotidiana del doblaje.",
+      role: "Actor, ajustador y director de doblaje en activo.",
+      photo: "/images/paco-cardona.webp",
+      photoAlt: "Paco Cardona trabajando ante un atril y un micrófono",
+      photoPosition: "center 42%",
+      introduction: "Más de 30 años de experiencia profesional.",
+      website: { label: "pacocardona.com", href: "https://pacocardona.com" },
       type: "direccion",
     },
     {
       name: "Ahimsa Sánchez",
-      role: "Actriz de doblaje · Profesora del Curso Anual",
-      photo: "/images/studio-session-2.jpg",
-      photoAlt: "Fotografía provisional que no representa a Ahimsa Sánchez",
-      photoPosition: "68% center",
-      introduction:
-        "Forma parte estable de la formación anual y del seguimiento práctico del alumnado durante su trabajo y evolución en sala.",
+      role: "Actriz, ajustadora y directora de doblaje en activo.",
+      photo: "/images/ahimsa-sanchez.webp",
+      photoAlt: "Ahimsa Sánchez trabajando ante un atril y un micrófono",
+      photoPosition: "center 45%",
+      introduction: "Más de 30 años de experiencia profesional.",
+      website: null,
       type: "profesorado-estable",
     },
   ] satisfies FacultyProfile[],

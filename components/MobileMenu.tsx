@@ -20,12 +20,13 @@ export function MobileMenu() {
     <details className="mobile-menu" ref={menuRef} suppressHydrationWarning>
       <summary aria-label="Abrir menú"><span /><span /></summary>
       <div onClickCapture={closeAfterNavigation}>
-        <a href="#curso">Curso anual</a>
-        <a href="#metodologia">Metodología</a>
-        <a href="#intensivo">Intensivo</a>
-        <a href="#direccion">Dirección</a>
+        <a href="#master-dub">¿Qué es una MASTER DUB?</a>
+        <a href="#curso">Formación anual</a>
+        <a href="#instalaciones">Instalaciones</a>
+        <a href="#direccion">Profesionales</a>
+        <a href="#en-sala">En sala</a>
         <StudentAccess />
-        <a href="#informacion">Información</a>
+        <a href="#informacion">INFÓRMATE</a>
       </div>
     </details>
   );

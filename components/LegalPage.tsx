@@ -12,7 +12,6 @@ export function LegalPage({ title, children }: { title: string; children: React.
       <article className="legal-content narrow-shell" id="legal-content">
         <p className="section-kicker">Información legal</p>
         <h1>{title}</h1>
-        <div className="legal-notice">Documento pendiente de completar antes de la publicación.</div>
         {children}
       </article>
     </main>

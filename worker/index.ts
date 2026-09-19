@@ -1,6 +1,7 @@
 /** Cloudflare Worker entry point for the website. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { handleInformationRequest } from "./information-request";
 
 interface Env {
   ASSETS: {
@@ -13,6 +14,7 @@ interface Env {
       };
     };
   };
+  RESEND_API_KEY?: string;
 }
 
 interface ExecutionContext {
@@ -39,6 +41,10 @@ const worker = {
           return result.response();
         },
       }, allowedWidths);
+    }
+
+    if (url.pathname === "/api/information-request") {
+      return handleInformationRequest(request, env);
     }
 
     return handler.fetch(request, env, ctx);

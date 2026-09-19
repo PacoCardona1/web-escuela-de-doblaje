@@ -1,6 +1,6 @@
 export const trainingInterestOptions = [
-  { value: "annual", label: "Curso Anual" },
-  { value: "intensive", label: "Intensivo Profesional" },
+  { value: "annual", label: "Formación Anual" },
+  { value: "intensive", label: "MASTER DUB" },
   { value: "general", label: "Información general / Otra consulta" },
 ] as const;
 
@@ -44,8 +44,8 @@ export function createEmptyInformationRequest(): InformationRequest {
 }
 
 export const informationRequestIntegration = {
-  backendConnected: false,
-  destination: "Gestión Escuela",
+  backendConnected: true,
+  destination: "info@masterdub.es",
   futureRecordType: "Nuevo contacto / candidato potencial",
   futureFields: [
     "Origen: web",

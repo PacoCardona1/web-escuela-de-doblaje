@@ -1,6 +1,6 @@
 # MASTER DUB
 
-Web de **MASTER DUB · Escuela de Doblaje · Sevilla**, creada y dirigida por Paco Cardona. El proyecto está construido con React, TypeScript y vinext, con una arquitectura preparada para crecer sin haber conectado todavía ningún backend ni servicio externo.
+Web de **MASTER DUB · Escuela de Doblaje · Sevilla**, creada y dirigida por Paco Cardona. El proyecto está construido con React, TypeScript y vinext, con un endpoint servidor para el formulario público integrado con Resend.
 
 ## Requisitos
 
@@ -33,11 +33,11 @@ Los datos de identidad y contenidos generales están en [`config/site.ts`](confi
 - fechas y condiciones del curso anual;
 - redes y datos legales pendientes.
 
-El Intensivo Profesional se gestiona desde [`config/intensive.ts`](config/intensive.ts), incluyendo datos, narrativa, valoración previa y preparación del futuro directorio de talento. El formulario público y su futura integración se modelan en [`config/information.ts`](config/information.ts). El equipo docente se gestiona desde [`config/faculty.ts`](config/faculty.ts). Las fotografías integradas en las secciones, los vídeos de “Así se trabaja” y los testimonios se gestionan desde [`config/media.ts`](config/media.ts). El componente [`components/Brand.tsx`](components/Brand.tsx) centraliza la representación de marca en cabecera, pie y páginas legales.
+La experiencia MASTER DUB se gestiona desde [`config/intensive.ts`](config/intensive.ts), incluyendo datos, valoración previa y preparación del futuro directorio de talento. El formulario público y su futura integración se modelan en [`config/information.ts`](config/information.ts). El equipo se gestiona desde [`config/faculty.ts`](config/faculty.ts). Las fotografías integradas en las secciones, los vídeos de “En sala” y los testimonios futuros se gestionan desde [`config/media.ts`](config/media.ts). El componente [`components/Brand.tsx`](components/Brand.tsx) centraliza la representación de marca en cabecera, pie y páginas legales.
 
 El enlace de acceso a alumnos y las URLs de Instagram, TikTok, Facebook y YouTube también están centralizados en `config/site.ts`. Mientras una URL permanezca vacía, la interfaz muestra un estado pendiente no interactivo y no genera enlaces rotos.
 
-El correo previsto `info@masterdub.es` se muestra únicamente como dato informativo mientras `emailOperational` sea `false`; la web no crea todavía enlaces de correo ni conecta ningún envío.
+El formulario envía solicitudes a `info@masterdub.es` mediante Resend. La clave `RESEND_API_KEY` debe existir exclusivamente como secreto del entorno alojado en OpenAI Sites y, para desarrollo local, en un archivo `.env` ignorado por Git. Nunca debe incluirse en el repositorio ni exponerse al cliente.
 
 ## Imágenes y contenidos pendientes
 
@@ -75,7 +75,7 @@ Antes de publicar fotografías, vídeos o testimonios identificables de alumnos 
 
 ## Captación pública y futura Gestión Escuela
 
-La web pública utiliza un único formulario sencillo para solicitar información. No gestiona admisiones, matrículas, entrevistas ni pruebas de acceso, y todavía no envía ni almacena datos porque no existe un backend conectado.
+La web pública utiliza un único formulario sencillo para solicitar información. No gestiona admisiones, matrículas, entrevistas ni pruebas de acceso. Su endpoint valida los datos en servidor y entrega cada solicitud por correo mediante Resend; no guarda los datos en una base de datos.
 
 Cuando se conecte con “Gestión Escuela”, cada envío podrá crear un registro de **Nuevo contacto / candidato potencial** con origen web, formación de interés, datos de contacto, mensaje, preferencia de contacto y fecha. Esa integración no está implementada todavía.
 
@@ -98,7 +98,7 @@ Este modelo pertenece al proceso interno posterior. No debe volver a solicitarse
 El directorio no está implementado ni conectado a ningún backend. `config/intensive.ts` deja separados los siguientes estados para una futura integración con la plataforma de gestión de la escuela:
 
 1. Alumno de la escuela.
-2. Participante del Intensivo Profesional.
+2. Participante de MASTER DUB.
 3. Perfil considerado preparado para el directorio.
 4. Consentimiento voluntario para formar parte del directorio.
 5. Perfil público o promocionable.
@@ -115,10 +115,10 @@ La estructura futura `FutureTalentProfile` contempla nombre profesional, fotogra
 - `components/`: marca, formulario, medios, enlaces configurables y layout legal reutilizables.
 - `config/site.ts`: identidad, cursos y datos generales.
 - `config/information.ts`: formulario público y contrato futuro con Gestión Escuela.
-- `config/intensive.ts`: contenido del Intensivo y arquitectura futura del directorio de talento.
+- `config/intensive.ts`: contenido de MASTER DUB y arquitectura futura del directorio de talento.
 - `config/faculty.ts`: perfiles y fotografías del equipo docente.
 - `config/media.ts`: fotografías de sección, vídeos, testimonios y créditos.
-- `public/brand/`: derivados web optimizados del logo oficial, incluida su versión compacta.
+- `public/brand/`: logo oficial optimizado y derivado fiel de su símbolo para favicon.
 - `public/images/`: fotografías provisionales.
 
 ## Publicación

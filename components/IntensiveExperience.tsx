@@ -1,162 +1,89 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
-import { InformationLink } from "./InformationLink";
 import { intensiveConfig } from "../config/intensive";
 import type { ImageAsset } from "../config/media";
+import { InformationLink } from "./InformationLink";
 
 type IntensiveExperienceProps = {
   image: ImageAsset;
+  lanyard: ImageAsset;
 };
 
-export function IntensiveExperience({ image }: IntensiveExperienceProps) {
-  const intensive = intensiveConfig;
+export function IntensiveExperience({ image, lanyard }: IntensiveExperienceProps) {
+  const masterDub = intensiveConfig;
 
   return (
-    <section className="intensive" id="intensivo" aria-labelledby="intensive-title">
-      <div className="intensive-opening">
-        <figure className="intensive-image" style={{ "--intensive-position": image.position } as CSSProperties}>
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 760px) 100vw, 48vw" />
-          {image.credit && <figcaption>{image.credit}</figcaption>}
-        </figure>
-
-        <div className="intensive-opening-copy">
-          <p className="section-kicker light"><span className="rec-dot" /> Intensivo profesional · Acceso mediante valoración</p>
-          <h2 id="intensive-title">
-            {intensive.headline.lines.map((line) => <span key={line}>{line}</span>)}
-            <em>{intensive.headline.emphasis}</em>
-          </h2>
-          <p className="intensive-director">Dirigido por {intensive.director}</p>
-          <p className="intensive-copy">{intensive.introduction}</p>
-          <ul className="intensive-experience">
-            {intensive.experience.map((item) => <li key={item}>{item}</li>)}
-          </ul>
-          <p className="intensive-investment">{intensive.investmentStatement}</p>
-          <p className="intensive-eligibility">{intensive.eligibility}</p>
-
-          <dl className="intensive-facts">
-            {intensive.facts.map((fact) => (
-              <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+    <section className="master-dub" id="master-dub" aria-labelledby="master-dub-title">
+      <div className="master-dub-opening shell">
+        <div className="master-dub-copy">
+          <p className="section-kicker light"><span className="rec-dot" />{masterDub.eyebrow}</p>
+          <h2 id="master-dub-title">{masterDub.headline}</h2>
+          <p className="master-dub-intro">{masterDub.introduction}</p>
+          <p className="master-dub-eligibility">{masterDub.eligibility}</p>
+          <dl className="master-dub-facts">
+            {masterDub.facts.map((fact) => (
+              <div key={fact.label}><dd>{fact.value}</dd><dt>{fact.label}</dt></div>
             ))}
           </dl>
-
-          <div className="intensive-opening-action">
-            <InformationLink className="button button-light" href={intensive.access.href} interest="intensive">{intensive.access.cta} <span>↓</span></InformationLink>
-            <strong>{intensive.access.availability}</strong>
+          <div className="master-dub-action">
+            <InformationLink className="button button-light" href={masterDub.access.href} interest="intensive">
+              {masterDub.access.cta} <span>↓</span>
+            </InformationLink>
+            <strong>{masterDub.access.availability}</strong>
           </div>
         </div>
+
+        <figure className="master-dub-image" style={{ "--master-dub-position": image.position, "--master-dub-mobile-position": image.mobilePosition } as CSSProperties}>
+          <Image src={image.src} alt={image.alt} fill priority sizes="(max-width: 760px) 100vw, 46vw" />
+        </figure>
       </div>
 
-      <div className="intensive-story shell">
-        <section className="intensive-assessment" aria-labelledby="intensive-assessment-title">
-          <header className="intensive-story-heading">
-            <p className="intensive-index">01</p>
-            <div>
-              <p className="section-kicker light">El punto de partida</p>
-              <h3 id="intensive-assessment-title">{intensive.assessment.title}</h3>
-            </div>
-            <p>{intensive.assessment.introduction}</p>
-          </header>
-          <ol className="intensive-criteria">
-            {intensive.assessment.criteria.map((criterion, index) => (
-              <li key={criterion}><span>{String(index + 1).padStart(2, "0")}</span>{criterion}</li>
-            ))}
-          </ol>
-          <div className="intensive-principle">
-            <strong>{intensive.assessment.principle}</strong>
-            <p>{intensive.assessment.conclusion}</p>
-          </div>
-        </section>
+      <div className="master-dub-method shell">
+        <article>
+          <p className="section-kicker light">{masterDub.preparation.eyebrow}</p>
+          <h3>{masterDub.preparation.title}</h3>
+          <p>{masterDub.preparation.description}</p>
+          <ul className="master-dub-tags">
+            {masterDub.preparation.criteria.map((criterion) => <li key={criterion}>{criterion}</li>)}
+          </ul>
+          <strong className="master-dub-principle">{masterDub.preparation.principle}</strong>
+        </article>
 
-        <section className="intensive-call-sheet" aria-labelledby="intensive-call-sheet-title">
-          <header className="intensive-story-heading">
-            <p className="intensive-index">02</p>
-            <div>
-              <p className="section-kicker light">Material y personaje</p>
-              <h3 id="intensive-call-sheet-title">{intensive.callSheet.title}</h3>
-            </div>
-            <p>{intensive.callSheet.introduction}</p>
-          </header>
-          <ol className="genre-sequence" aria-label="Géneros de trabajo">
-            {intensive.callSheet.genres.map((genre, index) => (
-              <li key={genre}><span>{String(index + 1).padStart(2, "0")}</span><strong>{genre}</strong></li>
-            ))}
-          </ol>
-          <div className="register-sequence" aria-label="Registros interpretativos">
-            <span>Registros</span>
-            {intensive.callSheet.registers.map((register) => <strong key={register}>{register}</strong>)}
-          </div>
-        </section>
+        <article className="master-dub-work">
+          <p className="section-kicker light">{masterDub.work.eyebrow}</p>
+          <h3>{masterDub.work.title}</h3>
+          <p>{masterDub.work.description}</p>
+          <ul className="master-dub-dynamics">
+            {masterDub.work.dynamics.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <p className="master-dub-adaptation">{masterDub.work.adaptation}</p>
+          <p className="master-dub-genres"><span>Material</span>{masterDub.work.genres.join(" · ")}</p>
+        </article>
 
-        <section className="intensive-days" aria-label="Recorrido de los dos días">
-          {intensive.days.map((day) => (
-            <article className={`intensive-day day-${day.id}`} key={day.id}>
-              <header>
-                <span>{day.id}</span>
-                <div><p>{day.label}</p><h3>{day.title}</h3></div>
-              </header>
-              <p className="intensive-day-intro">{day.introduction}</p>
-              <ol>
-                {day.steps.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, "0")}</span>{step}</li>)}
-              </ol>
-              {"statement" in day && <blockquote>{day.statement}</blockquote>}
-            </article>
-          ))}
-        </section>
-
-        <section className="intensive-direction" aria-labelledby="intensive-direction-title">
-          <div>
-            <p className="section-kicker light"><span className="rec-dot" /> Supervisión de todo el proceso</p>
-            <h3 id="intensive-direction-title">{intensive.direction.title}</h3>
-            <p className="intensive-direction-name">{intensive.director}</p>
+        <article>
+          <p className="section-kicker light">{masterDub.outcome.eyebrow}</p>
+          <h3>{masterDub.outcome.title}</h3>
+          <p>{masterDub.outcome.description}</p>
+          <ul className="master-dub-tags">
+            {masterDub.outcome.assessment.map((item) => <li key={item}>{item}</li>)}
+          </ul>
+          <div className="master-dub-accreditation">
+            <strong>{masterDub.outcome.accreditation}</strong>
+            <p>{masterDub.outcome.observerNote}</p>
+            <small>{masterDub.outcome.disclaimer}</small>
           </div>
-          <div>
-            <p>{intensive.direction.introduction}</p>
-            <ol>
-              {intensive.direction.responsibilities.map((responsibility, index) => (
-                <li key={responsibility}><span>{String(index + 1).padStart(2, "0")}</span>{responsibility}</li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="intensive-after" aria-labelledby="intensive-after-title">
-          <header>
-            <p className="intensive-index">03</p>
-            <div><p className="section-kicker light">Orientación profesional</p><h3 id="intensive-after-title">{intensive.afterAtril.title}</h3></div>
-          </header>
-          <div className="intensive-after-copy">
-            <p>{intensive.afterAtril.introduction}</p>
-            <ol>
-              {intensive.afterAtril.guidance.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}
-            </ol>
-            <strong>{intensive.afterAtril.disclaimer}</strong>
-          </div>
-        </section>
-
-        <section className="intensive-directory" aria-labelledby="intensive-directory-title">
-          <p className="section-kicker light">Futuro directorio de talento</p>
-          <div>
-            <h3 id="intensive-directory-title">{intensive.directory.title}</h3>
-            <div>
-              <p>{intensive.directory.description}</p>
-              <small>{intensive.directory.status}</small>
-            </div>
-          </div>
-        </section>
-
-        <section className="intensive-access" id="intensive-access" aria-labelledby="intensive-access-title">
-          <div>
-            <p className="section-kicker light"><span className="rec-dot" /> Proceso independiente del Curso Anual</p>
-            <h3 id="intensive-access-title">{intensive.access.title}</h3>
-          </div>
-          <div>
-            <strong>{intensive.access.availability}</strong>
-            <p>{intensive.access.description}</p>
-            <InformationLink className="button button-light" href={intensive.access.href} interest="intensive">{intensive.access.cta} <span>↓</span></InformationLink>
-            <small className="intensive-access-status">{intensive.access.status}</small>
-          </div>
-        </section>
+          <figure className="master-dub-lanyard" style={{ "--master-dub-lanyard-position": lanyard.position } as CSSProperties}>
+            <Image src={lanyard.src} alt={lanyard.alt} fill sizes="(max-width: 760px) 100vw, 24vw" />
+            <figcaption>Una experiencia dentro de la profesión</figcaption>
+          </figure>
+        </article>
       </div>
+
+      <aside className="master-dub-direction shell" aria-label="Dirección de MASTER DUB">
+        <p>Dirección · {masterDub.director}</p>
+        <h3>{masterDub.direction.title}</h3>
+        <p>{masterDub.direction.description}</p>
+      </aside>
     </section>
   );
 }

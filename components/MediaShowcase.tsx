@@ -15,7 +15,7 @@ export function WorkVideos() {
             ) : (
               <div className="video-placeholder" role="img" aria-label={video.accessibilityLabel}>
                 {video.poster && <Image src={video.poster.src} alt={video.poster.alt} fill sizes="(max-width: 760px) 100vw, 33vw" style={{ objectPosition: video.poster.position }} />}
-                <span className="coming-soon">Vídeo pendiente</span>
+                <span className="coming-soon">Próximamente</span>
                 <i aria-hidden="true">▶</i>
               </div>
             )}
@@ -26,7 +26,7 @@ export function WorkVideos() {
               <strong>{video.title}</strong>
               <small>{video.description}</small>
             </div>
-            <small className="video-duration">{video.duration ?? "Duración pendiente"}</small>
+            {video.duration && <small className="video-duration">{video.duration}</small>}
           </div>
         </article>
       ))}

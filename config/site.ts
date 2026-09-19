@@ -6,24 +6,12 @@ export const siteConfig = {
   brand: {
     name: "MASTER DUB",
     shortName: "MASTER DUB",
-    descriptor: `Escuela de Doblaje · ${siteLocation}`,
+    descriptor: `Formación de Doblaje · ${siteLocation}`,
     signature: "Por Paco Cardona",
+    strapline: "FORMACIÓN PROFESIONAL DE DOBLAJE",
     domain: "masterdub.es",
-    logo: {
-      symbol: {
-        light: "/brand/master-dub-symbol-light.png",
-        dark: "/brand/master-dub-symbol-dark.png",
-      },
-      wordmark: {
-        light: "/brand/master-dub-wordmark-light.png",
-        dark: "/brand/master-dub-wordmark-dark.png",
-      },
-      full: {
-        light: "/brand/master-dub-logo-light.png",
-        dark: "/brand/master-dub-logo-dark.png",
-      },
-    },
-    favicon: "/brand/master-dub-symbol-dark.png",
+    logo: "/brand/master-dub-official-final.png",
+    favicon: "/brand/master-dub-symbol-official.png",
   },
   location: siteLocation,
   description:
@@ -62,7 +50,9 @@ export const siteConfig = {
     youtube: "",
   } as Record<SocialNetwork, string>,
   legal: {
-    owner: "",
-    taxId: "",
+    owner: "Francisco Martínez Cardona",
+    taxId: "28902026L",
+    address: "Avenida de Astronomía 1, Torre 3, Planta 7, módulo 12, 41015 Sevilla, España",
+    privacyEmail: "info@masterdub.es",
   },
 } as const;

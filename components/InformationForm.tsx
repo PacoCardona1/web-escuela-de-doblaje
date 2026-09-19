@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import {
   ContactPreference,
   InformationRequest,
@@ -11,8 +11,16 @@ import {
   informationRequestIntegration,
   trainingInterestOptions,
 } from "../config/information";
+import { siteConfig } from "../config/site";
 
 type FormErrors = Partial<Record<"fullName" | "email" | "phone" | "trainingInterest" | "message" | "privacy", string>>;
+type SubmissionStatus = "idle" | "submitting" | "success" | "error";
+
+type SubmissionResponse = {
+  ok: boolean;
+  message?: string;
+  fieldErrors?: FormErrors;
+};
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   return message ? <span className="field-error" id={id} role="alert">{message}</span> : null;
@@ -21,9 +29,14 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 export function InformationForm() {
   const [request, setRequest] = useState<InformationRequest>(createEmptyInformationRequest);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [demoChecked, setDemoChecked] = useState(false);
+  const [status, setStatus] = useState<SubmissionStatus>("idle");
+  const [statusMessage, setStatusMessage] = useState("");
+  const formStartedAt = useRef(0);
+  const submissionId = useRef<string | null>(null);
 
   useEffect(() => {
+    formStartedAt.current = Date.now();
+
     function selectRequestedTraining(event: Event) {
       const interest = (event as CustomEvent<TrainingInterest>).detail;
       if (interest) setRequest((current) => ({ ...current, trainingInterest: interest }));
@@ -46,7 +59,9 @@ export function InformationForm() {
 
   function update(patch: Partial<InformationRequest>) {
     setRequest((current) => ({ ...current, ...patch }));
-    setDemoChecked(false);
+    setStatus("idle");
+    setStatusMessage("");
+    submissionId.current = null;
   }
 
   function validate(): FormErrors {
@@ -56,12 +71,15 @@ export function InformationForm() {
     if (request.phone.replace(/\D/g, "").length < 6) nextErrors.phone = "Introduce un teléfono válido.";
     if (!request.trainingInterest) nextErrors.trainingInterest = "Selecciona la formación que te interesa.";
     if (!request.message.trim()) nextErrors.message = "Escribe brevemente tu consulta.";
-    if (!request.privacyAccepted) nextErrors.privacy = "Debes aceptar la política de privacidad.";
+    if (!request.privacyAccepted) nextErrors.privacy = "Debes confirmar que has leído la información de privacidad.";
     return nextErrors;
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (status === "submitting" || status === "success") return;
+
+    const form = event.currentTarget;
     const nextErrors = validate();
     setErrors(nextErrors);
 
@@ -72,9 +90,39 @@ export function InformationForm() {
       return;
     }
 
-    // DEMO ONLY: no request, persistence, email, or external integration occurs here.
-    // A future adapter can map `request` to informationRequestIntegration.futureRecordType.
-    if (!informationRequestIntegration.backendConnected) setDemoChecked(true);
+    setStatus("submitting");
+    setStatusMessage("");
+    submissionId.current ??= crypto.randomUUID();
+
+    try {
+      const response = await fetch("/api/information-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...request,
+          company: String(new FormData(form).get("company") ?? ""),
+          formStartedAt: formStartedAt.current,
+          submissionId: submissionId.current,
+        }),
+      });
+      const result = await response.json() as SubmissionResponse;
+
+      if (!response.ok || !result.ok) {
+        if (result.fieldErrors) setErrors(result.fieldErrors);
+        setStatus("error");
+        setStatusMessage(result.message ?? "No hemos podido enviar tu solicitud. Inténtalo de nuevo.");
+        return;
+      }
+
+      setRequest(createEmptyInformationRequest());
+      setErrors({});
+      setStatus("success");
+      setStatusMessage(result.message ?? "Tu solicitud se ha enviado correctamente.");
+      formStartedAt.current = Date.now();
+    } catch {
+      setStatus("error");
+      setStatusMessage("No hemos podido conectar con el servicio de envío. Tus datos siguen en el formulario para que puedas intentarlo de nuevo.");
+    }
   }
 
   return (
@@ -119,6 +167,11 @@ export function InformationForm() {
         <FieldError id="error-message" message={errors.message} />
       </label>
 
+      <label className="honeypot-field" aria-hidden="true">
+        <span>Empresa</span>
+        <input name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </label>
+
       <fieldset className="contact-preference">
         <legend>Prefiero que me contactéis por <small>Opcional</small></legend>
         <div>
@@ -133,18 +186,29 @@ export function InformationForm() {
 
       <label className="check-field privacy-check">
         <input type="checkbox" name="privacyAccepted" required checked={request.privacyAccepted} onChange={(event) => update({ privacyAccepted: event.target.checked })} aria-invalid={Boolean(errors.privacy)} aria-describedby={errors.privacy ? "error-privacy" : undefined} />
-        <span>He leído y acepto la <a href="/politica-de-privacidad" target="_blank" rel="noreferrer">política de privacidad</a>.</span>
+        <span>He leído la información sobre protección de datos y la <a href="/politica-de-privacidad" target="_blank" rel="noreferrer">política de privacidad</a>.</span>
       </label>
       <FieldError id="error-privacy" message={errors.privacy} />
 
-      <div className="information-form-action">
-        <button className="button button-dark" type="submit">Comprobar formulario <span>→</span></button>
-        <p id="information-form-note">Modo demostración: todavía no existe envío, almacenamiento ni conexión con Gestión Escuela.</p>
+      <div className="privacy-layer" aria-label="Información básica sobre protección de datos">
+        <p><strong>Responsable</strong><span>{siteConfig.legal.owner}</span></p>
+        <p><strong>Finalidad</strong><span>Atender y gestionar tu solicitud de información.</span></p>
+        <p><strong>Legitimación</strong><span>Medidas precontractuales solicitadas o consentimiento, según la consulta.</span></p>
+        <p><strong>Destinatarios</strong><span>Proveedores necesarios para prestar el servicio y autoridades cuando exista obligación legal.</span></p>
+        <p><strong>Derechos</strong><span>Acceso, rectificación, supresión, oposición, limitación y portabilidad cuando proceda, escribiendo a {siteConfig.legal.privacyEmail}.</span></p>
+        <a href="/politica-de-privacidad" target="_blank" rel="noreferrer">Información adicional en la Política de Privacidad</a>
       </div>
 
-      {demoChecked && (
-        <p className="demo-validation" role="status" aria-live="polite">
-          Datos validados en modo demostración. No se ha enviado ni almacenado ninguna información.
+      <div className="information-form-action">
+        <button className="button button-dark" type="submit" disabled={status === "submitting" || status === "success"}>
+          {status === "submitting" ? "Enviando…" : status === "success" ? "Solicitud enviada" : "Enviar solicitud"} <span>→</span>
+        </button>
+        <p id="information-form-note">La solicitud se enviará a {informationRequestIntegration.destination}. No se utilizará para publicidad ni boletines.</p>
+      </div>
+
+      {status !== "idle" && status !== "submitting" && (
+        <p className={`form-status form-status-${status}`} role={status === "error" ? "alert" : "status"} aria-live="polite">
+          {statusMessage}
         </p>
       )}
     </form>

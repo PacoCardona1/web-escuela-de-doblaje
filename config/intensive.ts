@@ -17,129 +17,58 @@ export type FutureTalentProfile = {
   publicationAuthorized: boolean;
 };
 
-const intensiveDirector = "Paco Cardona";
-
 export const intensiveConfig = {
-  name: `Intensivo Profesional de ${intensiveDirector}`,
-  director: intensiveDirector,
-  headline: {
-    lines: ["Dos días.", "Dos alumnos."],
-    emphasis: "Una convocatoria diseñada para ti.",
-  },
+  name: "MASTER DUB",
+  director: "Paco Cardona",
+  eyebrow: "MASTER DUB · Paco Cardona",
+  headline: "No vienes a clase. Vienes a doblar.",
   introduction:
-    "Una experiencia de formación avanzada para personas con formación o experiencia previa que quieren acercar su trabajo a las condiciones reales de la profesión.",
-  experience: [
-    "No saldrás del atril.",
-    "Realizarás convocatorias completas.",
-    "A ritmo profesional.",
-    "Con director profesional en activo.",
-    "Trabajos de películas, series, animación y mucho más.",
-    "En las instalaciones de Recording Words, estudio profesional de doblaje en activo.",
-    "Con posibilidad de asistir como oyente a trabajos reales.",
-  ],
-  investmentStatement:
-    "Invierte tu tiempo, tu dinero, tus ilusiones y tu futuro en manos de auténticos profesionales.",
-  eligibility: "Requiere formación o experiencia previa",
+    "Una experiencia inmersiva para personas con formación previa, planteada para acercar su trabajo a la dinámica de una convocatoria profesional de doblaje.",
+  eligibility: "No es formación de iniciación · Entrevista y valoración previa",
   facts: [
-    { label: "Duración", value: "2 días" },
-    { label: "Trabajo total", value: "16 horas" },
-    { label: "Formato", value: "4 jornadas de 4 horas" },
-    { label: "Grupo", value: "Máximo 2 participantes" },
-    { label: "Acceso", value: "Valoración previa" },
+    { label: "Participantes", value: "2" },
+    { label: "Jornadas", value: "2" },
+    { label: "Por jornada", value: "3 horas" },
+    { label: "Trabajo total", value: "6 horas" },
   ],
-  assessment: {
-    title: "Antes de entrar en sala",
-    introduction:
-      "El intensivo comienza con un análisis individual para comprender desde dónde trabaja cada participante y qué necesita desarrollar.",
-    criteria: [
-      "Características de su voz",
-      "Cualidades interpretativas",
-      "Experiencia previa",
-      "Fortalezas",
-      "Aspectos que necesita desarrollar",
-    ],
-    principle: "No todos los participantes trabajan exactamente el mismo material.",
-    conclusion:
-      "A partir de este punto se diseña una convocatoria adaptada al perfil y a las necesidades de cada participante.",
+  preparation: {
+    eyebrow: "Antes de entrar en sala",
+    title: "El trabajo se prepara para ti.",
+    description:
+      "Antes de comenzar analizamos el punto de partida de cada participante y preparamos convocatorias y personajes adecuados a su perfil.",
+    criteria: ["Experiencia", "Voz", "Registro", "Necesidades", "Capacidades", "Aspectos a trabajar"],
+    principle: "No trabajas una colección de ejercicios genéricos.",
   },
-  callSheet: {
-    title: "Una convocatoria diseñada para ti",
-    introduction:
-      "El participante recibe personaje y material de trabajo de forma similar a una convocatoria profesional. La variedad permite observar cómo responde ante registros, ritmos y situaciones diferentes.",
-    genres: ["Cine", "Series", "Animación", "Publicidad", "Documental"],
-    registers: ["Comedia", "Drama", "Personajes", "Situaciones"],
+  work: {
+    eyebrow: "Durante la experiencia",
+    title: "Aquí no vienes a esperar tu turno. Vienes a trabajar.",
+    description:
+      "Las seis horas están organizadas para maximizar el trabajo efectivo en el atril, alternando a los dos participantes con ritmo y dirección constante.",
+    dynamics: ["Muchos takes", "Corrección inmediata", "Repetición", "Concentración", "Ritmo", "Exigencia profesional"],
+    genres: ["Película", "Serie", "Animación", "Documental", "Otros formatos adecuados"],
+    adaptation:
+      "Personajes y materiales seleccionados según la voz, la edad, el registro y las necesidades de cada participante.",
   },
-  days: [
-    {
-      id: "01",
-      label: "Día 1",
-      title: "Conocer, ajustar, preparar",
-      introduction:
-        "Una primera jornada flexible para conocer el perfil, aproximarse al personaje y empezar a tomar decisiones ante el atril.",
-      steps: [
-        "Toma de contacto y análisis del perfil",
-        "Asignación y aproximación al personaje",
-        "Interpretación, sincronía y primeras escenas",
-        "Detección de fortalezas y aspectos a trabajar",
-        "Correcciones individualizadas",
-      ],
-    },
-    {
-      id: "02",
-      label: "Día 2",
-      title: "Trabajar como en una convocatoria",
-      introduction:
-        "La exigencia aumenta: el material está preparado, el personaje asignado y el trabajo se acerca al ritmo de una convocatoria profesional.",
-      steps: [
-        "Trabajo ante atril y dirección",
-        "Correcciones y repetición",
-        "Ritmo y resolución de escenas",
-        "Adaptación a diferentes géneros",
-        "Aplicación de indicaciones con mayor autonomía",
-      ],
-      statement: "Hoy has venido a trabajar.",
-    },
-  ],
   direction: {
-    title: "Dirección profesional",
-    introduction:
-      `Todo el proceso está supervisado por ${intensiveDirector}, que acompaña el trabajo y aumenta progresivamente la exigencia de cada participante.`,
-    responsibilities: [
-      "Observar cómo trabaja",
-      "Detectar fortalezas",
-      "Identificar aspectos que debe mejorar",
-      "Dirigir escenas",
-      "Aumentar progresivamente la exigencia",
-      "Ofrecer feedback individualizado",
-    ],
+    title: "Sabes quién va a analizarte, dirigirte y corregirte.",
+    description:
+      "Paco Cardona supervisa y dirige la experiencia desde más de 30 años de actividad continua y demostrable como actor y director de doblaje.",
   },
-  afterAtril: {
-    title: "Después del atril",
-    introduction:
-      "La experiencia no termina al finalizar las 16 horas. El participante recibe orientación para aproximarse a sus primeros pasos profesionales con expectativas realistas.",
-    guidance: [
-      "Cómo afrontar los primeros pasos",
-      "Cómo presentarse",
-      "Qué material profesional puede necesitar",
-      "Qué aspectos debería seguir trabajando",
-      "Qué expectativas son realistas dentro del sector",
-    ],
+  outcome: {
+    eyebrow: "Al finalizar",
+    title: "Una valoración profesional y precisa.",
+    description:
+      "Revisaremos tus capacidades, fortalezas, los aspectos que debes seguir trabajando y una posible aproximación progresiva al entorno profesional.",
+    assessment: ["Capacidades", "Fortalezas", "Aspectos a trabajar", "Orientación profesional"],
+    accreditation: "Acreditación MASTER DUB",
+    observerNote:
+      "La acreditación podrá permitir la asistencia como oyente a un trabajo real únicamente si existe una sesión adecuada, hay disponibilidad, las circunstancias de producción lo permiten y es posible admitir oyentes.",
     disclaimer: "La formación no implica trabajo, representación ni contratación.",
   },
-  directory: {
-    title: "Tu formación no termina al salir de la sala.",
-    description:
-      "Si su perfil está preparado y desea formar parte de él, el participante podrá incorporarse voluntariamente al futuro directorio de talento de la escuela, creado para dar visibilidad a nuevas voces ante estudios, directores y otros profesionales del sector.",
-    status: "Directorio pendiente de desarrollo y conexión con la plataforma de gestión de la escuela.",
-  },
   access: {
-    cta: "Solicita información sobre el Intensivo",
+    cta: "Solicita información sobre MASTER DUB",
     href: "/?formacion=intensivo#informacion",
-    title: "Acceso con valoración previa",
-    description:
-      "El acceso requiere formación o experiencia previa y una valoración o prueba antes de incorporarse. Solicitar información en esta web no inicia ese proceso.",
-    availability: "Máximo 2 participantes por edición",
-    status: "La valoración se gestiona fuera de la web pública",
+    availability: "Solo 2 participantes por edición",
   },
 } as const;
 
@@ -147,8 +76,8 @@ export const talentDirectoryArchitecture = {
   backendConnected: false,
   managementPlatformConnected: false,
   stages: [
-    "Alumno de la escuela",
-    "Participante del Intensivo Profesional",
+    "Alumno de la formación anual",
+    "Participante de MASTER DUB",
     "Perfil considerado preparado para directorio",
     "Consentimiento voluntario para formar parte del directorio",
     "Perfil público o promocionable",
@@ -164,5 +93,5 @@ export const talentDirectoryArchitecture = {
     "Autorización de publicación",
   ],
   rule:
-    "Participar en el curso no implica aparecer en el directorio ni autoriza la publicación del perfil.",
+    "Participar en una formación no implica aparecer en el directorio ni autoriza la publicación del perfil.",
 } as const;

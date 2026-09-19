@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description: siteConfig.description,
-    keywords: ["escuela de doblaje", `doblaje ${siteConfig.location}`, "curso de doblaje", "formación de doblaje"],
+    keywords: ["formación profesional de doblaje", `doblaje ${siteConfig.location}`, "formación anual de doblaje", "formación de doblaje"],
     applicationName: siteConfig.brand.name,
     icons: {
       icon: siteConfig.brand.favicon,
