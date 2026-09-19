@@ -33,7 +33,7 @@ function validInformationPayload(overrides = {}) {
     privacyAccepted: true,
     origin: "website",
     createdAt: null,
-    company: "",
+    contactGuard: "",
     formStartedAt: Date.now() - 5_000,
     submissionId: "1b4e28ba-2fa1-4f4c-91d2-6a8164f70101",
     ...overrides,
@@ -220,6 +220,30 @@ test("information endpoint validates input and sends through Resend without expo
     );
     assert.equal(invalidResponse.status, 422);
     assert.equal(calls.length, 1);
+
+    const autofilledLegacyFieldResponse = await worker.fetch(
+      new Request("https://masterdub.es/api/information-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://masterdub.es" },
+        body: JSON.stringify(validInformationPayload({ company: "Empresa autocompletada" })),
+      }),
+      { RESEND_API_KEY: "test-server-secret" },
+      { waitUntil() {}, passThroughOnException() {} },
+    );
+    assert.equal(autofilledLegacyFieldResponse.status, 200);
+    assert.equal(calls.length, 2);
+
+    const honeypotResponse = await worker.fetch(
+      new Request("https://masterdub.es/api/information-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Origin: "https://masterdub.es" },
+        body: JSON.stringify(validInformationPayload({ contactGuard: "bot" })),
+      }),
+      { RESEND_API_KEY: "test-server-secret" },
+      { waitUntil() {}, passThroughOnException() {} },
+    );
+    assert.equal(honeypotResponse.status, 400);
+    assert.equal(calls.length, 2);
   } finally {
     globalThis.fetch = originalFetch;
   }

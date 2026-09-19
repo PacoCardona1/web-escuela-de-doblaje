@@ -24,7 +24,7 @@ type InformationPayload = {
   message: string;
   contactPreference: keyof typeof contactPreferenceLabels;
   privacyAccepted: true;
-  company: "";
+  contactGuard: "";
   formStartedAt: number;
   submissionId: string;
 };
@@ -94,7 +94,7 @@ function validatePayload(value: unknown): { payload?: InformationPayload; fieldE
   const trainingInterest = cleanString(input.trainingInterest);
   const message = cleanString(input.message);
   const contactPreference = cleanString(input.contactPreference);
-  const company = cleanString(input.company);
+  const contactGuard = cleanString(input.contactGuard);
   const formStartedAt = typeof input.formStartedAt === "number" ? input.formStartedAt : 0;
   const submissionId = cleanString(input.submissionId);
 
@@ -110,7 +110,7 @@ function validatePayload(value: unknown): { payload?: InformationPayload; fieldE
   const validSubmissionId = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionId);
   const validContactPreference = contactPreference in contactPreferenceLabels;
 
-  if (Object.keys(fieldErrors).length > 0 || company || !validTiming || !validSubmissionId || !validContactPreference) return { fieldErrors };
+  if (Object.keys(fieldErrors).length > 0 || contactGuard || !validTiming || !validSubmissionId || !validContactPreference) return { fieldErrors };
 
   return {
     fieldErrors,
@@ -122,7 +122,7 @@ function validatePayload(value: unknown): { payload?: InformationPayload; fieldE
       message,
       contactPreference: contactPreference as InformationPayload["contactPreference"],
       privacyAccepted: true,
-      company: "",
+      contactGuard: "",
       formStartedAt,
       submissionId,
     },

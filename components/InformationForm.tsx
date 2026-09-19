@@ -100,7 +100,7 @@ export function InformationForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...request,
-          company: String(new FormData(form).get("company") ?? ""),
+          contactGuard: String(new FormData(form).get("contact_guard") ?? ""),
           formStartedAt: formStartedAt.current,
           submissionId: submissionId.current,
         }),
@@ -168,8 +168,8 @@ export function InformationForm() {
       </label>
 
       <label className="honeypot-field" aria-hidden="true">
-        <span>Empresa</span>
-        <input name="company" type="text" tabIndex={-1} autoComplete="off" />
+        <span>Dejar vacío</span>
+        <input name="contact_guard" type="text" tabIndex={-1} autoComplete="off" />
       </label>
 
       <fieldset className="contact-preference">
