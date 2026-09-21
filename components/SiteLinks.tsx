@@ -17,17 +17,16 @@ export function StudentAccess({ className = "" }: { className?: string }) {
 const socialMeta: Array<{ key: SocialNetwork; label: string; glyph: string }> = [
   { key: "instagram", label: "Instagram", glyph: "" },
   { key: "tiktok", label: "TikTok", glyph: "♪" },
-  { key: "facebook", label: "Facebook", glyph: "f" },
   { key: "youtube", label: "YouTube", glyph: "▶" },
 ];
 
-export function SocialLinks() {
+export function SocialLinks({ social = siteConfig.social }: { social?: Partial<Record<SocialNetwork, string>> }) {
   return (
     <nav className="footer-social" aria-label="Redes sociales">
       <p>Redes sociales</p>
       <div>
         {socialMeta.map(({ key, label, glyph }) => {
-          const url = siteConfig.social[key];
+          const url = social[key] ?? "";
           const icon = <span className={`social-icon social-icon-${key}`} aria-hidden="true">{glyph}</span>;
 
           return url

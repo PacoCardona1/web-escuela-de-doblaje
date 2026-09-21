@@ -2,6 +2,7 @@
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
 import { handleInformationRequest } from "./information-request";
+import { handleCmsRequest, handleCmsMedia, protectCmsPage } from "./cms";
 
 interface Env {
   ASSETS: {
@@ -15,6 +16,10 @@ interface Env {
     };
   };
   RESEND_API_KEY?: string;
+  DB?: D1Database;
+  BUCKET?: R2Bucket;
+  CMS_ADMIN_EMAILS?: string;
+  CMS_DEV_BYPASS?: string;
 }
 
 interface ExecutionContext {
@@ -45,6 +50,19 @@ const worker = {
 
     if (url.pathname === "/api/information-request") {
       return handleInformationRequest(request, env);
+    }
+
+    if (url.pathname.startsWith("/api/cms/")) {
+      return handleCmsRequest(request, env);
+    }
+
+    if (url.pathname.startsWith("/cms-media/")) {
+      return handleCmsMedia(request, env);
+    }
+
+    if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+      const denied = protectCmsPage(request, env);
+      if (denied) return denied;
     }
 
     return handler.fetch(request, env, ctx);

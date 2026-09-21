@@ -35,7 +35,7 @@ Los datos de identidad y contenidos generales están en [`config/site.ts`](confi
 
 La experiencia MASTER DUB se gestiona desde [`config/intensive.ts`](config/intensive.ts), incluyendo datos, valoración previa y preparación del futuro directorio de talento. El formulario público y su futura integración se modelan en [`config/information.ts`](config/information.ts). El equipo se gestiona desde [`config/faculty.ts`](config/faculty.ts). Las fotografías integradas en las secciones, los vídeos de “En sala” y los testimonios futuros se gestionan desde [`config/media.ts`](config/media.ts). El componente [`components/Brand.tsx`](components/Brand.tsx) centraliza la representación de marca en cabecera, pie y páginas legales.
 
-El enlace de acceso a alumnos y las URLs de Instagram, TikTok, Facebook y YouTube también están centralizados en `config/site.ts`. Mientras una URL permanezca vacía, la interfaz muestra un estado pendiente no interactivo y no genera enlaces rotos.
+El enlace de acceso a alumnos y las URLs oficiales de Instagram, TikTok y YouTube también están centralizados en `config/site.ts`. No se publica ningún enlace provisional de Facebook. Mientras una URL permanezca vacía, la interfaz muestra un estado pendiente no interactivo y no genera enlaces rotos.
 
 El formulario envía solicitudes a `info@masterdub.es` mediante Resend. La clave `RESEND_API_KEY` debe existir exclusivamente como secreto del entorno alojado en OpenAI Sites y, para desarrollo local, en un archivo `.env` ignorado por Git. Nunca debe incluirse en el repositorio ni exponerse al cliente.
 
@@ -53,9 +53,8 @@ También permanecen deliberadamente pendientes:
 
 - vídeos reales de clases;
 - testimonios verificables;
-- fotografías de Paco Cardona y del profesorado;
-- dirección, teléfono y redes oficiales;
-- textos legales y datos fiscales;
+- fotografías definitivas de cualquier profesional invitado que todavía figure como «Por confirmar»;
+- dirección y teléfono públicos, cuando la escuela decida publicarlos;
 - activación del dominio y del correo `info@masterdub.es`;
 - adaptación de `public/og.png` a la identidad MASTER DUB antes de volver a declararla en metadata social.
 
@@ -93,9 +92,49 @@ El antiguo formulario público de cinco pasos se retira, pero su modelo de infor
 
 Este modelo pertenece al proceso interno posterior. No debe volver a solicitarse en la web pública ni interpretarse como una admisión o matrícula iniciada online.
 
-## Arquitectura futura del directorio de talento
+## CMS público de MASTER DUB
 
-El directorio no está implementado ni conectado a ningún backend. `config/intensive.ts` deja separados los siguientes estados para una futura integración con la plataforma de gestión de la escuela:
+El repositorio contiene una primera arquitectura completa para administrar exclusivamente el contenido público desde `/admin`:
+
+- D1 (`DB`) almacena borradores, publicaciones, orden, visibilidad, papelera, autorizaciones e historial textual.
+- R2 (`BUCKET`) almacena imágenes del CMS; los vídeos, audios y dossiers de talentos se referencian mediante URL externa.
+- `/admin` y `/api/cms/*` requieren identidad de Sites y autorización server-side mediante `CMS_ADMIN_EMAILS`.
+- Paco Cardona, Ahimsa Sánchez y las secciones esenciales se siembran como registros protegidos; los profesionales invitados se gestionan en la misma colección, con placeholder hasta disponer de retrato.
+- el contenido actual del repositorio sigue siendo el fallback público, de modo que activar el almacenamiento no cambia la Home hasta inicializar y publicar contenido.
+- las rutas públicas disponibles son `/noticias`, `/noticias/<slug>`, `/talentos` y `/<slug-del-talento>`.
+- los perfiles de talento ofrecen las plantillas controladas `cinema`, `editorial` y `studio`; los campos vacíos no se renderizan.
+- YouTube se carga con `youtube-nocookie.com` únicamente tras interacción explícita.
+- los editores de Web, Talentos, Profesionales, Noticias, Multimedia y Ajustes utilizan formularios visuales específicos; la estructura interna nunca se muestra como JSON al administrador.
+- el selector de imágenes reutilizable permite buscar, previsualizar, subir y asociar archivos existentes desde cualquier editor.
+- las imágenes JPEG/WebP grandes se reducen en el navegador a un máximo de 2400 px y se convierten a WebP con calidad alta antes de enviarse a R2. PNG y AVIF se conservan para no perder transparencia ni características del original.
+- la biblioteca registra dimensiones, peso y asociaciones conocidas. Los vídeos y audios se guardan como enlaces externos; no se suben archivos audiovisuales pesados a R2.
+- los talentos publicados pueden generar y descargar localmente un QR a `https://masterdub.es/<slug>` sin utilizar servicios externos.
+
+### Activación pendiente en Sites
+
+1. Revisar y autorizar el commit; no incluir `.dev.vars`, secretos ni datos de prueba.
+2. En el proyecto de Sites, provisionar/conectar un recurso D1 al binding lógico `DB` y un bucket R2 al binding lógico `BUCKET`, exactamente como declara `.openai/hosting.json`.
+3. Configurar `CMS_ADMIN_EMAILS` como variable solo de servidor con los emails autorizados separados por comas. Confirmar que `CMS_DEV_BYPASS` no existe o no vale `true` en el entorno alojado.
+4. Mantener `RESEND_API_KEY` como secreto de servidor ya existente; no copiarlo al repositorio ni a variables públicas.
+5. Publicar la versión autorizada. El flujo de Sites aplica las migraciones de `drizzle/` antes de subir el Worker; comprobar que `0000_masterdub_cms.sql` figura como aplicada y no modificar después ese archivo aplicado.
+6. Abrir `/admin`, iniciar sesión con ChatGPT usando una cuenta incluida en `CMS_ADMIN_EMAILS` y comprobar que una cuenta no incluida recibe 403.
+7. Si D1 está vacío, pulsar **Inicializar CMS** una sola vez. El endpoint rechaza la operación si ya existen registros y no sobrescribe contenido.
+8. Verificar en borrador un cambio inocuo, publicarlo y confirmar su efecto público; subir una imagen de prueba, reutilizarla y retirarla después mediante Papelera.
+9. Comprobar `/`, `/talentos`, `/noticias`, un perfil, una noticia, el formulario de información y el responsive antes de considerar cerrada la activación.
+
+Para ensayar D1 exclusivamente en local, construir primero el proyecto y aplicar la migración contra el estado local de Wrangler:
+
+```bash
+./node_modules/.bin/wrangler d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_masterdub_cms.sql
+```
+
+Este comando no debe ejecutarse sin `--local` durante una revisión local. La semilla editorial no forma parte de la migración: se crea únicamente desde **Inicializar CMS**.
+
+Para desarrollo local puede copiarse `.dev.vars.example` a `.dev.vars` y activar `CMS_DEV_BYPASS=true`. Este bypass solo se acepta para `localhost`/`127.0.0.1` y nunca debe configurarse en producción.
+
+## Arquitectura del directorio de talento
+
+El directorio público y su modelo CMS están implementados, aunque requieren activar D1/R2 para persistir contenido. `config/intensive.ts` conserva separados los siguientes estados de negocio:
 
 1. Alumno de la escuela.
 2. Participante de MASTER DUB.
@@ -123,4 +162,4 @@ La estructura futura `FutureTalentProfile` contempla nombre profesional, fotogra
 
 ## Publicación
 
-El proyecto incluye la configuración técnica de Sites, pero no se ha publicado ni se ha configurado hosting, tal como se solicitó.
+La web pública existente está desplegada en `masterdub.es`. Los cambios de CMS descritos aquí permanecen únicamente en el árbol de trabajo hasta que se autorice expresamente su commit y despliegue.

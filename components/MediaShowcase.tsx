@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { mediaConfig } from "../config/media";
 
-export function WorkVideos() {
+export function WorkVideos({ videos = mediaConfig.videos }: { videos?: typeof mediaConfig.videos }) {
   return (
     <div className="video-grid">
-      {mediaConfig.videos.map((video) => (
+      {videos.map((video) => (
         <article className="video-card" key={video.id}>
           <div className="video-visual">
             {video.src ? (

@@ -124,6 +124,10 @@ test("server-renders the production homepage", async () => {
   assert.match(html, /Francisco Martínez Cardona/i);
   assert.match(html, /Atender y gestionar tu solicitud de información/i);
   assert.match(html, /Redes sociales/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/masterdub\.es\//i);
+  assert.match(html, /https:\/\/www\.tiktok\.com\/@masterdub\.es/i);
+  assert.match(html, /https:\/\/www\.youtube\.com\/@masterdub_es/i);
+  assert.doesNotMatch(html, /facebook\.com|social-icon-facebook/i);
   assert.match(html, /video-poster-lectern\.webp/);
   assert.match(html, /video-poster-script\.webp/);
   assert.match(html, /video-poster-control\.webp/);
@@ -281,4 +285,103 @@ test("server-renders the legal notice and truthful cookies policy", async () => 
   assert.match(cookiesHtml, /no instala actualmente cookies propias ni de terceros/i);
   assert.match(cookiesHtml, /Google Analytics/i);
   assert.doesNotMatch(cookiesHtml, /pendiente de completar/i);
+});
+
+test("CMS routes are protected and public directories fail safely before storage activation", async () => {
+  const worker = await loadWorker();
+  const cmsResponse = await worker.fetch(
+    new Request("https://masterdub.es/api/cms/bootstrap"),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  assert.equal(cmsResponse.status, 401);
+  assert.equal((await cmsResponse.json()).code, "AUTH_REQUIRED");
+
+  const adminResponse = await worker.fetch(
+    new Request("https://masterdub.es/admin"),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
+  );
+  assert.equal(adminResponse.status, 302);
+  assert.match(adminResponse.headers.get("location") ?? "", /\/signin-with-chatgpt\?return_to=%2Fadmin/);
+
+  const talentsResponse = await render("/talentos");
+  assert.equal(talentsResponse.status, 200);
+  assert.match(await talentsResponse.text(), /Talentos MASTER DUB/);
+});
+
+test("talent slugs reserve every real top-level route", async () => {
+  const schema = await readFile(new URL("../db/schema.ts", import.meta.url), "utf8");
+  for (const slug of ["admin", "api", "noticias", "talentos", "aviso-legal", "politica-de-privacidad", "politica-de-cookies", "cms-media"]) {
+    assert.match(schema, new RegExp(`\\b${slug}\\b`));
+  }
+});
+
+test("CMS uses visual editors instead of exposing implementation data", async () => {
+  const [dashboard, editor, mediaLibrary, cmsWorker] = await Promise.all([
+    readFile(new URL("../components/admin/AdminDashboard.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/admin/RecordEditor.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/admin/MediaLibrary.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../worker/cms.ts", import.meta.url), "utf8"),
+  ]);
+  const adminSource = `${dashboard}\n${editor}\n${mediaLibrary}`;
+  assert.doesNotMatch(adminSource, /Contenido estructurado|Editor protegido por campos JSON|JSON\.parse\(data\)/i);
+  for (const tab of ["Perfil", "Voz", "Formación", "Demos", "Vídeos", "Trabajos", "Galería", "Contacto", "Diseño", "SEO"]) assert.match(editor, new RegExp(tab));
+  assert.match(editor, /Autorización de publicación/);
+  assert.match(editor, /const url = `https:\/\/masterdub\.es\/\$\{slug\}`/);
+  assert.match(editor, /QRCode\.toDataURL\(url/);
+  assert.match(editor, /QRCode\.toString\(url, \{ type: "svg"/);
+  assert.match(mediaLibrary, /optimizeImage/);
+  assert.match(mediaLibrary, /Añadir vídeo o audio por enlace/);
+  assert.match(cmsWorker, /syncMediaUsage/);
+  assert.match(cmsWorker, /CMS_ADMIN_EMAILS/);
+  assert.match(cmsWorker, /env\.BUCKET\.put/);
+});
+
+test("published featured talents and news remain connected to Home independently of directory flags", async () => {
+  const [home, publicStore, highlights] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/cms-public.ts", import.meta.url), "utf8"),
+    readFile(new URL("../components/HomeCmsHighlights.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(highlights, /listPublished\("talents", \{ featured: true, limit: 3 \}\)/);
+  assert.match(highlights, /listPublished\("news", \{ featured: true, limit: 3 \}\)/);
+  assert.match(highlights, /talents\.length > 0 && <section/);
+  assert.match(highlights, /news\.length > 0 && <section/);
+  assert.doesNotMatch(highlights, /talentsSection !== null|newsSection !== null/);
+  assert.match(home, /<HomeCmsHighlights talentsSection=\{cms\.talents\} newsSection=\{cms\.news\}/);
+  assert.match(publicStore, /if \(options\.featured !== undefined\).*featured = \?/s);
+  assert.match(publicStore, /if \(options\.listed !== undefined\).*listed = \?/s);
+});
+
+test("CMS-backed public fields and invited professionals have one source of truth", async () => {
+  const [home, editor, seed, highlights] = await Promise.all([
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/admin/RecordEditor.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../config/cms-seed.ts", import.meta.url), "utf8"),
+    readFile(new URL("../components/HomeCmsHighlights.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(seed, /collection: "professionals", id: `invitado-\$\{index \+ 1\}`/);
+  assert.match(home, /professionalsConfigured \? cmsInvitedProfessionals/);
+  assert.match(home, /photo \|\| facultyConfig\.placeholderPhoto/);
+  assert.match(home, /text\("hero","primaryHref","#informacion"\)/);
+  assert.match(home, /text\("annual","href","#informacion"\)/);
+  assert.match(home, /text\("studio","description"/);
+  assert.match(editor, /Nuevo profesional invitado|Enlaces adicionales/);
+  assert.match(editor, /Lema accesible de marca/);
+  assert.match(highlights, /limit: 3/);
+  assert.match(editor, /Descargar PNG/);
+  assert.match(editor, /Descargar SVG/);
+});
+
+test("CMS enforces same-origin mutations, safe uploads and private media state", async () => {
+  const cmsWorker = await readFile(new URL("../worker/cms.ts", import.meta.url), "utf8");
+  assert.match(cmsWorker, /origin === new URL\(request\.url\)\.origin/);
+  assert.match(cmsWorker, /matchesImageSignature\(bytes, contentType\)/);
+  assert.match(cmsWorker, /bytes\.byteLength > MAX_IMAGE_BYTES/);
+  assert.match(cmsWorker, /status='published' AND visible=1/);
+  assert.match(cmsWorker, /await env\.BUCKET\.delete\(key\)/);
+  assert.match(cmsWorker, /youtube-nocookie\.com|primaryHref/);
 });

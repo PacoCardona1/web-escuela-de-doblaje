@@ -1,4 +1,4 @@
-export type SocialNetwork = "instagram" | "tiktok" | "facebook" | "youtube";
+export type SocialNetwork = "instagram" | "tiktok" | "youtube";
 
 const siteLocation = "Sevilla";
 
@@ -44,10 +44,9 @@ export const siteConfig = {
     url: "" as string,
   },
   social: {
-    instagram: "",
-    tiktok: "",
-    facebook: "",
-    youtube: "",
+    instagram: "https://www.instagram.com/masterdub.es/",
+    tiktok: "https://www.tiktok.com/@masterdub.es",
+    youtube: "https://www.youtube.com/@masterdub_es",
   } as Record<SocialNetwork, string>,
   legal: {
     owner: "Francisco Martínez Cardona",

@@ -7,10 +7,13 @@ import { InformationLink } from "./InformationLink";
 type IntensiveExperienceProps = {
   image: ImageAsset;
   lanyard: ImageAsset;
+  content?: typeof intensiveConfig;
+  visible?: boolean;
 };
 
-export function IntensiveExperience({ image, lanyard }: IntensiveExperienceProps) {
-  const masterDub = intensiveConfig;
+export function IntensiveExperience({ image, lanyard, content, visible = true }: IntensiveExperienceProps) {
+  const masterDub = content ?? intensiveConfig;
+  if (!visible) return null;
 
   return (
     <section className="master-dub" id="master-dub" aria-labelledby="master-dub-title">

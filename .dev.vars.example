@@ -1,0 +1,8 @@
+# Solo para desarrollo local. Nunca activar este bypass en producción.
+CMS_DEV_BYPASS=true
+
+# En producción, lista separada por comas de emails autorizados tras iniciar sesión con ChatGPT.
+CMS_ADMIN_EMAILS=administrador@ejemplo.es
+
+# El secreto ya configurado en Sites se mantiene fuera del repositorio.
+RESEND_API_KEY=
